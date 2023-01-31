@@ -18,14 +18,16 @@ let backgroundFine = LinearGradient(
     startPoint: .top, endPoint: .bottom)
 
 struct ContentView: View {
+    
     var body: some View {
         
-        let condition = "fine";
+        let condition = "good";
         if (condition == "good"){
             ZStack{
                 backgroundGood
                 VStack{
                     Text("Sunrise is good!")
+                        .foregroundColor(Color.white)
                         .padding()
                 }
             }
