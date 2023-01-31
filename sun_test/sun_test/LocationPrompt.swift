@@ -25,6 +25,7 @@ let backgroundColor = LinearGradient(
 struct LocationPrompt: View {
     @State private var city: String = ""
     @State private var state: String = ""
+    @State private var location = ""
     
     var body: some View {
         ZStack{
@@ -38,7 +39,7 @@ struct LocationPrompt: View {
                     TextField("Enter Your State", text: $state)
                         .textFieldStyle(.roundedBorder)
                     
-                    Button(action: get_location(user_city:city, user_state:state), label: {
+                    Button(action: {location = city + "," + state}, label: {
                                             Image(systemName: "arrow.right.square")
                                                 .font(.title)
                                         })
@@ -46,10 +47,6 @@ struct LocationPrompt: View {
             }
         }
     }
-}
-
-func get_location(user_city: String, user_state: String) -> String {
-    return user_city + "," + user_state
 }
 
 
