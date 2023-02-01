@@ -19,6 +19,10 @@ let backgroundFine = LinearGradient(
 
 struct ContentView: View {
     
+    //Binding allows us to get the location from a different view
+    @State var location = "Springfield,MO"
+  
+    
     var body: some View {
         
         let condition = "good";
@@ -59,3 +63,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+
