@@ -1,8 +1,11 @@
 import UIKit
 
-func callAPI(){
+var emptyStrings: [String] = []
+
+
+func callAPI() {
     print("in function")
-    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=false&contentType=json&key=L3ECDBLQ675PXHQS3BX4HQM8U") else{
+    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=false&contentType=csv&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{
         return
     }
 
@@ -11,7 +14,8 @@ func callAPI(){
         data, response, error in
         
         if let data = data, let string = String(data: data, encoding: .utf8){
-            print(string)
+            var string2 = string
+            dealWithString(string2:string2)
         } else {
             print("no")
         }
@@ -20,4 +24,23 @@ func callAPI(){
     task.resume()
 }
 
+func dealWithString(string2: String){
+    print("in second function")
+    var place = 0
+    var lastSpace = 0
+    for char in string2{
+        if(char == "\n" || char == ","){
+            let range = string2.index(string2.startIndex, offsetBy: lastSpace+1)..<string2.index(string2.startIndex, offsetBy: place)
+            var currentString = string2[range]
+            emptyStrings.append(String(currentString))
+            lastSpace = place
+        }
+        place+=1
+    }
+    print("did first for loop")
+    for str in emptyStrings{
+        print(str)
+    }
+
+}
 callAPI()
