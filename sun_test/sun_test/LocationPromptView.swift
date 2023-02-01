@@ -19,27 +19,36 @@ struct LocationPrompt: View {
     @State private var city: String = ""
     @State private var state: String = ""
     @State private var location = ""
+    @State var areYouGoingToSecondView = false
+
     
     var body: some View {
+        NavigationView {
         ZStack{
             backgroundColor
-            VStack {
-                Text("Welcome")
-                    .font(.title)
-                HStack {
-                    TextField("Enter Your City", text: $city)
-                        .textFieldStyle(.roundedBorder)
-                    TextField("Enter Your State", text: $state)
-                        .textFieldStyle(.roundedBorder)
-                    Button(action: {location = city + "," + state
-                        print(location)
+            
+                VStack {
+                    Text("Welcome")
+                        .font(.title)
+                    HStack {
+                        TextField("Enter Your City", text: $city)
+                            .textFieldStyle(.roundedBorder)
+                        TextField("Enter Your State", text: $state)
+                            .textFieldStyle(.roundedBorder)
+                        NavigationLink(destination: ContentView(), isActive: $areYouGoingToSecondView) { EmptyView() }
+                            Button(action: {location = city + "," + state
+                                self.areYouGoingToSecondView = true
+                                print(location)
+                            }
+                                   , label: {
+                                Image(systemName: "arrow.right.square")
+                                    .font(.title)
+                            })
+                        
                     }
-                           , label: {
-                                            Image(systemName: "arrow.right.square")
-                                                .font(.title)
-                                        })
                 }
             }
+            
         }
     }
 }
