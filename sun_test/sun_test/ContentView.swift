@@ -19,6 +19,9 @@ let backgroundFine = LinearGradient(
 
 struct ContentView: View {
     
+    //Binding allows us to get the location from a different view
+    @Binding var location: String
+    
     var body: some View {
         
         let condition = "good";
@@ -54,8 +57,11 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(location: location)
+//    }
+//}
+
+
+

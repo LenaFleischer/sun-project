@@ -1,18 +1,11 @@
 //
-//  LocationPrompt.swift
+//  LocationPromptView.swift
 //  sun_test
 //
-//  Created by Ellen Moore on 1/31/23.
+//  Created by Ellen Moore on 2/1/23.
 //
 
 import Foundation
-//
-//  ContentView.swift
-//  sun_test
-//
-//  Created by Lena Fleischer on 1/30/23.
-//
-
 import SwiftUI
 
 let backgroundColor = LinearGradient(
@@ -38,8 +31,10 @@ struct LocationPrompt: View {
                         .textFieldStyle(.roundedBorder)
                     TextField("Enter Your State", text: $state)
                         .textFieldStyle(.roundedBorder)
-                    
-                    Button(action: {location = city + "," + state}, label: {
+                    Button(action: {location = city + "," + state
+                        print(location)
+                    }
+                           , label: {
                                             Image(systemName: "arrow.right.square")
                                                 .font(.title)
                                         })
