@@ -2,7 +2,7 @@ import UIKit
 
 func callAPI(){
     print("in function")
-    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=false&contentType=json&key=L3ECDBLQ675PXHQS3BX4HQM8U") else{
+    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=false&contentType=json&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{
         return
     }
 
