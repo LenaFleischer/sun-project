@@ -28,6 +28,7 @@ struct Weather:Codable{
 struct Values: Codable{
     let wdir: Double
     let uvindex: Double
+    let sunrise: String
     let datetimeStr: String
     let precriptype: String?
     let cin: Double
@@ -44,9 +45,11 @@ struct Values: Codable{
     let severerisk: Double
     let solarenergy: Double
     let heatindex: Double?
+    let moonphase: Double
     let snowdepth: Double
     let sealevelpressure: Double
     let snow: Double
+    let sunset: String
     let wgust: Double
     let conditions: String
     let windchill: Double
@@ -74,17 +77,16 @@ struct CurrentConditions:Codable{
     let wgust: Double?
     let windchill: Double
 }
-/**
+
 func callAPI(){
-    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{
-        return
-    }
+    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
 
 
     let task = URLSession.shared.dataTask(with: url){
         data, response, error in
         
         if let data = data, let string = String(data: data, encoding: .utf8){
+            print(string)
         } else {
             print("no")
         }
@@ -92,10 +94,10 @@ func callAPI(){
 
     task.resume()
 }
-//callAPI()
-*/
+callAPI()
+
 func decodeAPI(){
-    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
+    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
 
     let task = URLSession.shared.dataTask(with: url){
         data, response, error in
@@ -105,10 +107,32 @@ func decodeAPI(){
         if let data = data{
             do{
                 let weatherinfo = try decoder.decode(Weather.self, from: data)
-                var sunsetTime = weatherinfo.location.currentConditions.sunset
+                var currentTime = weatherinfo.location.currentConditions.datetime
+                let firstHourIndex = currentTime.index(currentTime.startIndex, offsetBy: 11)
+                let secondHourIndex = currentTime.index(currentTime.startIndex, offsetBy: 12)
+                var firstHour = currentTime[firstHourIndex]
+                var secondHour = currentTime[secondHourIndex]
+                var hourString = String(firstHour)+String(secondHour)
+                var hour = Int(hourString) ?? 0
+                print(hour)
+                
                 var sunriseTime = weatherinfo.location.currentConditions.sunrise
-                findCloudCoverAtSunset(values:weatherinfo.location.values, sunsetTime:sunsetTime)
-                findCloudCoverAtSunrise(values:weatherinfo.location.values, sunriseTime: sunriseTime)
+                let firstSunriseHourIndex = sunriseTime.index(sunriseTime.startIndex, offsetBy: 11)
+                let secondSunriseHourIndex = sunriseTime.index(sunriseTime.startIndex, offsetBy: 12)
+                var firstSunriseHour = sunriseTime[firstHourIndex]
+                var secondSunriseHour = sunriseTime[secondHourIndex]
+                var sunriseHourString = String(firstSunriseHour)+String(secondSunriseHour)
+                var sunriseHour = Int(sunriseHourString) ?? 0
+                print(sunriseHour)
+                
+                var sunsetTime = weatherinfo.location.currentConditions.sunset
+                let firstSunsetHourIndex = sunsetTime.index(sunsetTime.startIndex, offsetBy: 11)
+                let secondSunsetHourIndex = sunsetTime.index(sunsetTime.startIndex, offsetBy: 12)
+                var firstSunsetHour = sunsetTime[firstHourIndex]
+                var secondSunsetHour = sunsetTime[secondHourIndex]
+                var sunsetHourString = String(firstSunsetHour)+String(secondSunsetHour)
+                var sunsetHour = Int(sunsetHourString) ?? 0
+                print(sunsetHour)
             }catch{
                 print(error)
             }
@@ -117,7 +141,7 @@ func decodeAPI(){
     task.resume()
 
 }
-decodeAPI()
+//decodeAPI()
 
 func findCloudCoverAtSunset(values: [Values], sunsetTime: String){
     var chars = Array(sunsetTime)

@@ -21,8 +21,7 @@ struct ContentView: View {
     
     //Binding allows us to get the location from a different view
     //@State var location = "Springfield,MO"
-    @Binding var location: String
-    
+    @Binding var userLocation: String
     
     var body: some View {
         
@@ -51,7 +50,7 @@ struct ContentView: View {
             ZStack{
                 backgroundFine
                 VStack{
-                    Text(location)
+                    Text(userLocation)
                     Text("Sunrise is fine!")
                         .padding()
                 }
@@ -81,5 +80,3 @@ func getQuality(cloudCover: Int) -> String{
     }
     return condition
 }
-
-
