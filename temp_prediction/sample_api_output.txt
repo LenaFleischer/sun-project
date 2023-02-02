@@ -1,0 +1,403 @@
+sucessfully fetched the data with parameters provided
+{
+    "columns": {
+        "address": {
+            "id": "address",
+            "name": "Address",
+            "type": 1,
+            "unit": null
+        },
+        "cloudcover": {
+            "id": "cloudcover",
+            "name": "Cloud Cover",
+            "type": 2,
+            "unit": "%"
+        },
+        "conditions": {
+            "id": "conditions",
+            "name": "Conditions",
+            "type": 1,
+            "unit": null
+        },
+        "datetime": {
+            "id": "datetime",
+            "name": "Date time",
+            "type": 3,
+            "unit": null
+        },
+        "dew": {
+            "id": "dew",
+            "name": "Dew Point",
+            "type": 2,
+            "unit": "degF"
+        },
+        "heatindex": {
+            "id": "heatindex",
+            "name": "Heat Index",
+            "type": 2,
+            "unit": "degF"
+        },
+        "humidity": {
+            "id": "humidity",
+            "name": "Relative Humidity",
+            "type": 2,
+            "unit": "%"
+        },
+        "info": {
+            "id": "info",
+            "name": "Info",
+            "type": 1,
+            "unit": null
+        },
+        "latitude": {
+            "id": "latitude",
+            "name": "Latitude",
+            "type": 2,
+            "unit": null
+        },
+        "longitude": {
+            "id": "longitude",
+            "name": "Longitude",
+            "type": 2,
+            "unit": null
+        },
+        "maxt": {
+            "id": "maxt",
+            "name": "Maximum Temperature",
+            "type": 2,
+            "unit": "degF"
+        },
+        "mint": {
+            "id": "mint",
+            "name": "Minimum Temperature",
+            "type": 2,
+            "unit": "degF"
+        },
+        "name": {
+            "id": "name",
+            "name": "Name",
+            "type": 1,
+            "unit": null
+        },
+        "precip": {
+            "id": "precip",
+            "name": "Precipitation",
+            "type": 2,
+            "unit": "in"
+        },
+        "precipcover": {
+            "id": "precipcover",
+            "name": "Precipitation Cover",
+            "type": 2,
+            "unit": "%"
+        },
+        "resolvedAddress": {
+            "id": "resolvedAddress",
+            "name": "Resolved Address",
+            "type": 1,
+            "unit": null
+        },
+        "sealevelpressure": {
+            "id": "sealevelpressure",
+            "name": "Sea Level Pressure",
+            "type": 2,
+            "unit": "mb"
+        },
+        "snow": {
+            "id": "snow",
+            "name": "Snow",
+            "type": 2,
+            "unit": "in"
+        },
+        "snowdepth": {
+            "id": "snowdepth",
+            "name": "Snow Depth",
+            "type": 2,
+            "unit": "in"
+        },
+        "solarenergy": {
+            "id": "solarenergy",
+            "name": "Solar Energy",
+            "type": 2,
+            "unit": "J/m^2"
+        },
+        "solarradiation": {
+            "id": "solarradiation",
+            "name": "Solar Radiation",
+            "type": 2,
+            "unit": "W/m^2"
+        },
+        "temp": {
+            "id": "temp",
+            "name": "Temperature",
+            "type": 2,
+            "unit": "degF"
+        },
+        "visibility": {
+            "id": "visibility",
+            "name": "Visibility",
+            "type": 2,
+            "unit": "mi"
+        },
+        "wdir": {
+            "id": "wdir",
+            "name": "Wind Direction",
+            "type": 2,
+            "unit": null
+        },
+        "weathertype": {
+            "id": "weathertype",
+            "name": "Weather Type",
+            "type": 1,
+            "unit": null
+        },
+        "wgust": {
+            "id": "wgust",
+            "name": "Wind Gust",
+            "type": 2,
+            "unit": "mph"
+        },
+        "windchill": {
+            "id": "windchill",
+            "name": "Wind Chill",
+            "type": 2,
+            "unit": "degF"
+        },
+        "wspd": {
+            "id": "wspd",
+            "name": "Wind Speed",
+            "type": 2,
+            "unit": "mph"
+        }
+    },
+    "locations": {
+        "ColoradoSprings,CO,US": {
+            "address": "Colorado Springs, CO, United States",
+            "alerts": null,
+            "currentConditions": null,
+            "distance": 0.0,
+            "id": "ColoradoSprings,CO,US",
+            "index": 0,
+            "latitude": 38.83352,
+            "longitude": -104.82181,
+            "name": "Colorado Springs, CO, United States",
+            "stationContributions": null,
+            "time": 0.0,
+            "tz": "America/Denver",
+            "values": [
+                {
+                    "cloudcover": 43.4,
+                    "conditions": "Rain, Partially cloudy",
+                    "datetime": 1560384000000,
+                    "datetimeStr": "2019-06-13T00:00:00-06:00",
+                    "dew": 39.9,
+                    "heatindex": null,
+                    "humidity": 42.63,
+                    "info": null,
+                    "maxt": 79.1,
+                    "mint": 45.2,
+                    "precip": 0.02,
+                    "precipcover": 8.33,
+                    "sealevelpressure": 1012.4,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 22.7,
+                    "solarradiation": 394.3,
+                    "temp": 65.2,
+                    "visibility": 9.9,
+                    "wdir": 137.33,
+                    "weathertype": "Lightning Without Thunder, Light Rain",
+                    "wgust": 25.3,
+                    "windchill": 42.5,
+                    "wspd": 14.1
+                },
+                {
+                    "cloudcover": 51.1,
+                    "conditions": "Rain, Partially cloudy",
+                    "datetime": 1560470400000,
+                    "datetimeStr": "2019-06-14T00:00:00-06:00",
+                    "dew": 41.1,
+                    "heatindex": 79.4,
+                    "humidity": 40.13,
+                    "info": null,
+                    "maxt": 81.2,
+                    "mint": 54.3,
+                    "precip": 0.15,
+                    "precipcover": 8.33,
+                    "sealevelpressure": 1007.2,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 13.9,
+                    "solarradiation": 241.1,
+                    "temp": 68.0,
+                    "visibility": 9.9,
+                    "wdir": 152.63,
+                    "weathertype": "Lightning Without Thunder, Precipitation In Vicinity, Thunderstorm, Light Rain",
+                    "wgust": 45.0,
+                    "windchill": null,
+                    "wspd": 16.7
+                },
+                {
+                    "cloudcover": 50.3,
+                    "conditions": "Rain, Partially cloudy",
+                    "datetime": 1560556800000,
+                    "datetimeStr": "2019-06-15T00:00:00-06:00",
+                    "dew": 45.9,
+                    "heatindex": null,
+                    "humidity": 63.93,
+                    "info": null,
+                    "maxt": 73.0,
+                    "mint": 49.6,
+                    "precip": 0.09,
+                    "precipcover": 16.67,
+                    "sealevelpressure": 1012.6,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 9.4,
+                    "solarradiation": 164.0,
+                    "temp": 59.1,
+                    "visibility": 9.8,
+                    "wdir": 190.83,
+                    "weathertype": "Lightning Without Thunder, Thunderstorm, Rain Showers, Light Rain",
+                    "wgust": 32.8,
+                    "windchill": 46.3,
+                    "wspd": 16.4
+                },
+                {
+                    "cloudcover": 39.5,
+                    "conditions": "Rain, Partially cloudy",
+                    "datetime": 1560643200000,
+                    "datetimeStr": "2019-06-16T00:00:00-06:00",
+                    "dew": 45.8,
+                    "heatindex": null,
+                    "humidity": 64.41,
+                    "info": null,
+                    "maxt": 74.7,
+                    "mint": 46.8,
+                    "precip": 0.15,
+                    "precipcover": 20.83,
+                    "sealevelpressure": 1013.8,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 19.0,
+                    "solarradiation": 330.6,
+                    "temp": 59.3,
+                    "visibility": 9.9,
+                    "wdir": 202.67,
+                    "weathertype": "Lightning Without Thunder, Thunderstorm, Light Rain",
+                    "wgust": 39.4,
+                    "windchill": 43.2,
+                    "wspd": 19.3
+                },
+                {
+                    "cloudcover": 58.5,
+                    "conditions": "Rain, Partially cloudy",
+                    "datetime": 1560729600000,
+                    "datetimeStr": "2019-06-17T00:00:00-06:00",
+                    "dew": 48.3,
+                    "heatindex": null,
+                    "humidity": 68.26,
+                    "info": null,
+                    "maxt": 69.3,
+                    "mint": 48.2,
+                    "precip": 0.01,
+                    "precipcover": 4.17,
+                    "sealevelpressure": 1013.8,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 11.0,
+                    "solarradiation": 191.2,
+                    "temp": 59.4,
+                    "visibility": 9.9,
+                    "wdir": 182.13,
+                    "weathertype": "Lightning Without Thunder, Thunderstorm, Light Rain",
+                    "wgust": 24.6,
+                    "windchill": 45.3,
+                    "wspd": 15.6
+                },
+                {
+                    "cloudcover": 62.9,
+                    "conditions": "Rain, Partially cloudy",
+                    "datetime": 1560816000000,
+                    "datetimeStr": "2019-06-18T00:00:00-06:00",
+                    "dew": 50.2,
+                    "heatindex": null,
+                    "humidity": 78.46,
+                    "info": null,
+                    "maxt": 65.7,
+                    "mint": 52.4,
+                    "precip": 0.32,
+                    "precipcover": 37.5,
+                    "sealevelpressure": 1014.1,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 7.5,
+                    "solarradiation": 130.6,
+                    "temp": 57.0,
+                    "visibility": 9.8,
+                    "wdir": 186.67,
+                    "weathertype": "Lightning Without Thunder, Thunderstorm, Rain, Rain Showers, Heavy Rain, Light Rain",
+                    "wgust": 30.0,
+                    "windchill": null,
+                    "wspd": 16.1
+                },
+                {
+                    "cloudcover": 40.7,
+                    "conditions": "Partially cloudy",
+                    "datetime": 1560902400000,
+                    "datetimeStr": "2019-06-19T00:00:00-06:00",
+                    "dew": 43.0,
+                    "heatindex": null,
+                    "humidity": 50.57,
+                    "info": null,
+                    "maxt": 77.6,
+                    "mint": 48.4,
+                    "precip": 0.0,
+                    "precipcover": 0.0,
+                    "sealevelpressure": 1009.8,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 20.1,
+                    "solarradiation": 348.6,
+                    "temp": 63.9,
+                    "visibility": 9.9,
+                    "wdir": 181.96,
+                    "weathertype": "",
+                    "wgust": 24.2,
+                    "windchill": 46.7,
+                    "wspd": 14.3
+                },
+                {
+                    "cloudcover": 42.5,
+                    "conditions": "Partially cloudy",
+                    "datetime": 1560988800000,
+                    "datetimeStr": "2019-06-20T00:00:00-06:00",
+                    "dew": 42.5,
+                    "heatindex": 80.0,
+                    "humidity": 43.64,
+                    "info": null,
+                    "maxt": 81.9,
+                    "mint": 51.6,
+                    "precip": 0.0,
+                    "precipcover": 0.0,
+                    "sealevelpressure": 1004.2,
+                    "snow": 0.0,
+                    "snowdepth": 0.0,
+                    "solarenergy": 20.6,
+                    "solarradiation": 356.9,
+                    "temp": 67.9,
+                    "visibility": 9.9,
+                    "wdir": 125.25,
+                    "weathertype": "Thunderstorm",
+                    "wgust": 36.4,
+                    "windchill": null,
+                    "wspd": 25.8
+                }
+            ]
+        }
+    },
+    "messages": null,
+    "queryCost": 8,
+    "remainingCost": 0
+}
+

@@ -3,7 +3,7 @@ import json
 import csv
 import pandas as pd
 
-FILE_PREFIX = 'data'
+FILE_PREFIX = '2022_data'
 
 ### NOTE: the csv out function is COLORADO SPRINGS specific. Can only deal with one location at a time
 ### The get_user_data function is unecessary for this, since we don't need to pass in specific user data
@@ -81,12 +81,13 @@ class MakeApiCall:
 #        self.get_user_data(api, parameters)
 
 if __name__ == "__main__":
-    hours = "24"
-    start = "2022-05-23T00:00:00"
-    end = "2022-05-24T00:00:00"
+    hours = "24" # 1 is hourly, 24 is daily
+    start = "2022-01-01T00:00:00"
+    end = "2022-12-31T00:00:00"
     location = "ColoradoSprings,CO,US"
-    api_link = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/history?&aggregateHours="+hours+"&startDateTime="+start+"&endDateTime="+end+"&unitGroup=us&contentType=json&dayStartTime=0:0:00&dayEndTime=0:0:00&location="+location+"&key=L3ECDBLQ675PXHQS3BX4HQM8U"
-    
+    type = "json" # or csv
+    # history, not forecast
+    api_link = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/history?&aggregateHours="+hours+"&startDateTime="+start+"&endDateTime="+end+"&unitGroup=us&contentType="+type+"&dayStartTime=0:0:00&dayEndTime=0:0:00&location="+location+"&key=L3ECDBLQ675PXHQS3BX4HQM8U"
     
     api_call = MakeApiCall(api_link)
 
