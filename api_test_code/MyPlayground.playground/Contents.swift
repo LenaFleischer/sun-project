@@ -85,7 +85,6 @@ func callAPI(){
         data, response, error in
         
         if let data = data, let string = String(data: data, encoding: .utf8){
-            print(string)
         } else {
             print("no")
         }
@@ -93,7 +92,6 @@ func callAPI(){
 
     task.resume()
 }
-
 //callAPI()
 */
 func decodeAPI(){
