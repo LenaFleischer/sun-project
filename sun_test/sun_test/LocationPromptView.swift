@@ -12,7 +12,6 @@ let backgroundColor = LinearGradient(
     colors: [Color.pink, Color.orange],
     startPoint: .top, endPoint: .bottom)
 
-var location = ""
 
 struct LocationPrompt: View {
     @State private var city: String = ""
@@ -39,7 +38,7 @@ struct LocationPrompt: View {
                             Button(action: {location = city.replacingOccurrences(of: " ", with: "") + "," + state
                                 self.goToLocationPrompt = true
                                 print(location)
-                                callAPI()
+                                callAPI(location: location)
                             }
                                    , label: {
                                 Image(systemName: "arrow.right.square")
@@ -63,7 +62,7 @@ struct LocationPrompt_Previews: PreviewProvider {
 
 
 // andys code to call the api
-func callAPI() {
+func callAPI(location: String) {
     guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=" + location + "&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=false&contentType=csv&key=4UR84GUK6HRFRTNBQXWNSVFJ4")
     else{
         return
