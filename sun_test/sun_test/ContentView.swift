@@ -20,12 +20,14 @@ let backgroundFine = LinearGradient(
 struct ContentView: View {
     
     //Binding allows us to get the location from a different view
-    @State var location = "Springfield,MO"
-  
+    //@State var location = "Springfield,MO"
+    @Binding var location: String
+    
     
     var body: some View {
         
-        let condition = "good";
+        let clouds = 50
+        let condition = getQuality(cloudCover: clouds)
         if (condition == "good"){
             ZStack{
                 backgroundGood
@@ -49,6 +51,7 @@ struct ContentView: View {
             ZStack{
                 backgroundFine
                 VStack{
+                    Text(location)
                     Text("Sunrise is fine!")
                         .padding()
                 }
@@ -58,11 +61,25 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
 
+
+func getQuality(cloudCover: Int) -> String{
+    var condition = ""
+    if (cloudCover < 25){
+        condition = "good"
+    }
+    else if (cloudCover > 75){
+        condition = "bad"
+    }
+    else {
+        condition = "fine"
+    }
+    return condition
+}
 
 
