@@ -107,7 +107,10 @@ func decodeAPI(){
         if let data = data{
             do{
                 let weatherinfo = try decoder.decode(Weather.self, from: data)
-                print(weatherinfo.location.values)
+                var sunsetTime = weatherinfo.location.currentConditions.sunset
+                var sunriseTime = weatherinfo.location.currentConditions.sunrise
+                findCloudCoverAtSunset(values:weatherinfo.location.values, sunsetTime:sunsetTime)
+                findCloudCoverAtSunrise(values:weatherinfo.location.values, sunriseTime: sunriseTime)
             }catch{
                 print(error)
             }
@@ -117,3 +120,37 @@ func decodeAPI(){
 
 }
 decodeAPI()
+
+func findCloudCoverAtSunset(values: [Values], sunsetTime: String){
+    var chars = Array(sunsetTime)
+    chars[14] = "0"
+    chars[15] = "0"
+    chars[17] = "0"
+    chars[18] = "0"
+
+    let correctedSunsetTime = String(chars)
+    values.forEach{ i in
+        if(i.datetimeStr == correctedSunsetTime){
+            print(i.cloudcover)
+        }
+    }
+    return
+}
+
+func findCloudCoverAtSunrise(values: [Values], sunriseTime: String){
+    var chars = Array(sunriseTime)
+    
+    chars[9] = "3"
+    chars[14] = "0"
+    chars[15] = "0"
+    chars[17] = "0"
+    chars[18] = "0"
+
+    let correctedSunriseTime = String(chars)
+    values.forEach{ i in
+        if(i.datetimeStr == correctedSunriseTime){
+            print(i.cloudcover)
+        }
+    }
+    return
+}
