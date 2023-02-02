@@ -11,17 +11,13 @@ import SwiftUI
 let backgroundColor = LinearGradient(
     colors: [Color.pink, Color.orange],
     startPoint: .top, endPoint: .bottom)
-//var city =  ""
-//var state =  ""
 
 var location = ""
-
 
 struct LocationPrompt: View {
     @State private var city: String = ""
     @State private var state: String = ""
-    //@State private var location = ""
-    @State var areYouGoingToSecondView = false
+    @State var goToLocationPrompt = false
     @State var location: String = ""
 
     
@@ -38,9 +34,10 @@ struct LocationPrompt: View {
                             .textFieldStyle(.roundedBorder)
                         TextField("Enter Your State", text: $state)
                             .textFieldStyle(.roundedBorder)
-                        NavigationLink(destination: ContentView(location: $location), isActive: $areYouGoingToSecondView) { EmptyView() }
+                        // this is to allow the button to open the LocationPromptView
+                        NavigationLink(destination: ContentView(location: $location), isActive: $goToLocationPrompt) { EmptyView() }
                             Button(action: {location = city.replacingOccurrences(of: " ", with: "") + "," + state
-                                self.areYouGoingToSecondView = true
+                                self.goToLocationPrompt = true
                                 print(location)
                                 callAPI()
                             }
@@ -83,9 +80,4 @@ func callAPI() {
 }
 
 
-// This function will get the condition of the sunrise to use in ContentView
-// Will use the callAPI() func
-func getCondition() {
-    
-}
 
