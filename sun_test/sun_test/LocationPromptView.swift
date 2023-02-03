@@ -55,7 +55,7 @@ struct Values: Codable{
     let snow: Double
     let wgust: Double
     let conditions: String
-    let windchill: Double
+    let windchill: Double?
     let cape: Double
 }
 
@@ -78,7 +78,7 @@ struct CurrentConditions:Codable{
     let sunset: String
     let humidity: Double
     let wgust: Double?
-    let windchill: Double
+    let windchill: Double?
 }
 
 let backgroundColor = LinearGradient(
@@ -111,9 +111,16 @@ struct LocationPrompt: View {
                             Button(action: {userLocation = city.replacingOccurrences(of: " ", with: "") + "," + state
                                 self.goToLocationPrompt = true
                                 print(userLocation)
-                                var sunriseCloudCover:Double
-                                var sunsetCloudCover:Double
-                                (sunriseCloudCover,sunsetCloudCover) = decodeAPI(userLocation: userLocation)
+                                var thisSunriseCloudCover:Double = -1
+                                var thisSunsetCloudCover:Double = -1
+                                //(sunriseCloudCover,sunsetCloudCover) = decodeAPI(userLocation: userLocation)
+                                decodeAPI(userLocation: userLocation) { (sunriseCloudCover,sunsetCloudCover) in
+                                    thisSunriseCloudCover = sunriseCloudCover
+                                    thisSunsetCloudCover = sunsetCloudCover
+                                    
+                                    print(thisSunriseCloudCover)
+                                    print(thisSunsetCloudCover)
+                                }
                             }
                                    , label: {
                                 Image(systemName: "arrow.right.square")
@@ -135,11 +142,16 @@ struct LocationPrompt_Previews: PreviewProvider {
     }
 }
 
-func decodeAPI(userLocation:String) -> (Double,Double){
+let returnblock:((Double) -> ()) = { sunsetOrSunrise in
+    //sunsetOrSunrise
+    return
+}
+
+func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)->Void){
     var sunsetCloudCover = -1.0
     var sunriseCloudCover = -1.0
     
-    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations="+userLocation+"&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return (-1,-1)}
+    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations="+userLocation+"&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
 
     let task = URLSession.shared.dataTask(with: url){
         data, response, error in
@@ -149,17 +161,17 @@ func decodeAPI(userLocation:String) -> (Double,Double){
         if let data = data{
             do{
                 let weatherinfo = try decoder.decode(Weather.self, from: data)
-                var sunsetTime = weatherinfo.location.currentConditions.sunset
-                var sunriseTime = weatherinfo.location.currentConditions.sunrise
+                let sunsetTime = weatherinfo.location.currentConditions.sunset
+                let sunriseTime = weatherinfo.location.currentConditions.sunrise
                 sunsetCloudCover = findCloudCoverAtSunset(values:weatherinfo.location.values, sunsetTime:sunsetTime)
                 sunriseCloudCover = findCloudCoverAtSunrise(values:weatherinfo.location.values, sunriseTime: sunriseTime)
+                completionHandler(sunriseCloudCover,sunsetCloudCover)
             }catch{
                 print(error)
             }
         }
     }
     task.resume()
-    return (sunriseCloudCover, sunsetCloudCover)
 
 }
 
@@ -184,7 +196,7 @@ func findCloudCoverAtSunset(values: [Values], sunsetTime: String) -> Double {
 func findCloudCoverAtSunrise(values: [Values], sunriseTime: String) -> Double {
     var chars = Array(sunriseTime)
     
-    chars[9] = "3"
+    chars[9] = "4"
     chars[14] = "0"
     chars[15] = "0"
     chars[17] = "0"
