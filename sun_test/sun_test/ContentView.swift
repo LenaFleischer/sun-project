@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 let backgroundGood = LinearGradient(
     colors: [Color.pink, Color.orange],
     startPoint: .top, endPoint: .bottom)
@@ -20,14 +21,16 @@ let backgroundFine = LinearGradient(
 struct ContentView: View {
     
     //Binding allows us to get the location from a different view
-    //@State var location = "Springfield,MO"
     @Binding var location: String
+    @Binding var sunrisePer: Double
+    @Binding var sunsetPer: Double
+    
     
     
     var body: some View {
-        
         let clouds = 50
         let condition = getQuality(cloudCover: clouds)
+
         if (condition == "good"){
             ZStack{
                 backgroundGood
@@ -52,6 +55,8 @@ struct ContentView: View {
                 backgroundFine
                 VStack{
                     Text(location)
+                    Text(String(sunsetPer))
+                    
                     Text("Sunrise is fine!")
                         .padding()
                 }
@@ -60,12 +65,6 @@ struct ContentView: View {
         
     }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
 
 
 func getQuality(cloudCover: Int) -> String{
@@ -81,5 +80,3 @@ func getQuality(cloudCover: Int) -> String{
     }
     return condition
 }
-
-
