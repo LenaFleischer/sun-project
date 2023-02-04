@@ -38,7 +38,7 @@ struct ContentView: View {
                 VStack{
                     Text(location)
                         .foregroundColor(Color.white)
-                    Text("Cloud Cover \(String(sunsetPer))%")
+                    Text("Cloud Cover \(String(sunrisePer))%")
                         .foregroundColor(Color.white)
                     Text("Sunrise is good!")
                         .foregroundColor(Color.white)
@@ -51,7 +51,7 @@ struct ContentView: View {
                 VStack{
                     Text(location)
                         .foregroundColor(Color.white)
-                    Text("Cloud Cover \(String(sunsetPer))%")
+                    Text("Cloud Cover \(String(sunrisePer))%")
                         .foregroundColor(Color.white)
                     Text("Sunrise is bad!")
                         .foregroundColor(Color.white)
@@ -64,7 +64,7 @@ struct ContentView: View {
                 VStack{
                     Text(location)
                         .foregroundColor(Color.white)
-                    Text("Cloud Cover \(String(sunsetPer))%")
+                    Text("Cloud Cover \(String(sunrisePer))%")
                         .foregroundColor(Color.white)
                     Text("Sunrise is fine!")
                         .foregroundColor(Color.white)

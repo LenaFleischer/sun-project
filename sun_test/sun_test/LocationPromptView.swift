@@ -34,6 +34,7 @@ struct Weather:Codable{
 struct Values: Codable{
     let wdir: Double
     let uvindex: Double
+    let sunrise: String
     let datetimeStr: String
     let precriptype: String?
     let cin: Double
@@ -50,9 +51,11 @@ struct Values: Codable{
     let severerisk: Double
     let solarenergy: Double
     let heatindex: Double?
+    let moonphase: Double
     let snowdepth: Double
     let sealevelpressure: Double
     let snow: Double
+    let sunset: String
     let wgust: Double
     let conditions: String
     let windchill: Double?
@@ -150,7 +153,7 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)
     var sunsetCloudCover = -1.0
     var sunriseCloudCover = -1.0
     
-    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations="+userLocation+"&aggregateHours=1&forecastDays=1&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
+    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
 
     let task = URLSession.shared.dataTask(with: url){
         data, response, error in
@@ -159,11 +162,44 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)
 
         if let data = data{
             do{
+                var sunrisePassed = false
+                var sunsetPassed = false
+                
                 let weatherinfo = try decoder.decode(Weather.self, from: data)
-                let sunsetTime = weatherinfo.location.currentConditions.sunset
-                let sunriseTime = weatherinfo.location.currentConditions.sunrise
-                sunsetCloudCover = findCloudCoverAtSunset(values:weatherinfo.location.values, sunsetTime:sunsetTime)
-                sunriseCloudCover = findCloudCoverAtSunrise(values:weatherinfo.location.values, sunriseTime: sunriseTime)
+                var currentTime = weatherinfo.location.currentConditions.datetime
+                let firstHourIndex = currentTime.index(currentTime.startIndex, offsetBy: 11)
+                let secondHourIndex = currentTime.index(currentTime.startIndex, offsetBy: 12)
+                var firstHour = currentTime[firstHourIndex]
+                var secondHour = currentTime[secondHourIndex]
+                var hourString = String(firstHour)+String(secondHour)
+                var hour = Int(hourString) ?? 0
+                
+                var sunriseTime = weatherinfo.location.currentConditions.sunrise
+                let firstSunriseHourIndex = sunriseTime.index(sunriseTime.startIndex, offsetBy: 11)
+                let secondSunriseHourIndex = sunriseTime.index(sunriseTime.startIndex, offsetBy: 12)
+                var firstSunriseHour = sunriseTime[firstHourIndex]
+                var secondSunriseHour = sunriseTime[secondHourIndex]
+                var sunriseHourString = String(firstSunriseHour)+String(secondSunriseHour)
+                var sunriseHour = Int(sunriseHourString) ?? 0
+                
+                var sunsetTime = weatherinfo.location.currentConditions.sunset
+                let firstSunsetHourIndex = sunsetTime.index(sunsetTime.startIndex, offsetBy: 11)
+                let secondSunsetHourIndex = sunsetTime.index(sunsetTime.startIndex, offsetBy: 12)
+                var firstSunsetHour = sunsetTime[firstHourIndex]
+                var secondSunsetHour = sunsetTime[secondHourIndex]
+                var sunsetHourString = String(firstSunsetHour)+String(secondSunsetHour)
+                var sunsetHour = Int(sunsetHourString) ?? 0
+                
+                if(hour > sunriseHour){
+                    sunrisePassed = true
+                }
+                
+                if(hour > sunsetHour){
+                    sunsetPassed = true
+                }
+                
+                sunsetCloudCover = findCloudCoverAtSunset(values:weatherinfo.location.values, sunsetPassed: sunsetPassed)
+                sunriseCloudCover = findCloudCoverAtSunrise(values:weatherinfo.location.values, sunrisePassed: sunrisePassed)
                 completionHandler(sunriseCloudCover,sunsetCloudCover)
             }catch{
                 print(error)
@@ -174,16 +210,24 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)
 
 }
 
-func findCloudCoverAtSunset(values: [Values], sunsetTime: String) -> Double {
+func findCloudCoverAtSunset(values: [Values], sunsetPassed: Bool) -> Double {
+    var sunsetTime:String
+    if(sunsetPassed == true){
+        sunsetTime = values.last!.sunset
+    } else {
+        sunsetTime = values.first!.sunset
+    }
+    
     var chars = Array(sunsetTime)
+    
     chars[14] = "0"
     chars[15] = "0"
     chars[17] = "0"
     chars[18] = "0"
-    
-    var cloudcover:Double = -1
 
     let correctedSunsetTime = String(chars)
+    var cloudcover:Double = -1
+    
     values.forEach{ i in
         if(i.datetimeStr == correctedSunsetTime){
             cloudcover = i.cloudcover
@@ -192,18 +236,25 @@ func findCloudCoverAtSunset(values: [Values], sunsetTime: String) -> Double {
     return cloudcover
 }
 
-func findCloudCoverAtSunrise(values: [Values], sunriseTime: String) -> Double {
+func findCloudCoverAtSunrise(values: [Values], sunrisePassed:Bool) -> Double {
+    var sunriseTime:String
+    if(sunrisePassed == true){
+        sunriseTime = values.last!.sunrise
+    } else {
+        sunriseTime = values.first!.sunrise
+    }
+    
     var chars = Array(sunriseTime)
     
-    chars[9] = "4"
     chars[14] = "0"
     chars[15] = "0"
     chars[17] = "0"
     chars[18] = "0"
+
+    let correctedSunriseTime = String(chars)
     
     var cloudcover:Double = -1
 
-    let correctedSunriseTime = String(chars)
     values.forEach{ i in
         if(i.datetimeStr == correctedSunriseTime){
             cloudcover = i.cloudcover

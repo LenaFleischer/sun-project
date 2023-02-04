@@ -52,7 +52,7 @@ struct Values: Codable{
     let sunset: String
     let wgust: Double
     let conditions: String
-    let windchill: Double
+    let windchill: Double?
     let cape: Double
 }
 
@@ -75,7 +75,7 @@ struct CurrentConditions:Codable{
     let sunset: String
     let humidity: Double
     let wgust: Double?
-    let windchill: Double
+    let windchill: Double?
 }
 
 func callAPI(){
@@ -94,7 +94,7 @@ func callAPI(){
 
     task.resume()
 }
-callAPI()
+    //callAPI()
 
 func decodeAPI(){
     guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
@@ -106,6 +106,9 @@ func decodeAPI(){
 
         if let data = data{
             do{
+                var sunrisePassed = false
+                var sunsetPassed = false
+                
                 let weatherinfo = try decoder.decode(Weather.self, from: data)
                 var currentTime = weatherinfo.location.currentConditions.datetime
                 let firstHourIndex = currentTime.index(currentTime.startIndex, offsetBy: 11)
@@ -114,7 +117,6 @@ func decodeAPI(){
                 var secondHour = currentTime[secondHourIndex]
                 var hourString = String(firstHour)+String(secondHour)
                 var hour = Int(hourString) ?? 0
-                print(hour)
                 
                 var sunriseTime = weatherinfo.location.currentConditions.sunrise
                 let firstSunriseHourIndex = sunriseTime.index(sunriseTime.startIndex, offsetBy: 11)
@@ -123,7 +125,6 @@ func decodeAPI(){
                 var secondSunriseHour = sunriseTime[secondHourIndex]
                 var sunriseHourString = String(firstSunriseHour)+String(secondSunriseHour)
                 var sunriseHour = Int(sunriseHourString) ?? 0
-                print(sunriseHour)
                 
                 var sunsetTime = weatherinfo.location.currentConditions.sunset
                 let firstSunsetHourIndex = sunsetTime.index(sunsetTime.startIndex, offsetBy: 11)
@@ -132,7 +133,18 @@ func decodeAPI(){
                 var secondSunsetHour = sunsetTime[secondHourIndex]
                 var sunsetHourString = String(firstSunsetHour)+String(secondSunsetHour)
                 var sunsetHour = Int(sunsetHourString) ?? 0
-                print(sunsetHour)
+                
+                if(hour > sunriseHour){
+                    sunrisePassed = true
+                }
+                
+                if(hour > sunsetHour){
+                    sunsetPassed = true
+                }
+                
+                findCloudCoverAtSunset(values: weatherinfo.location.values, sunsetPassed: sunsetPassed)
+                
+                findCloudCoverAtSunrise(values: weatherinfo.location.values, sunrisePassed: sunrisePassed)
             }catch{
                 print(error)
             }
@@ -141,16 +153,25 @@ func decodeAPI(){
     task.resume()
 
 }
-//decodeAPI()
+decodeAPI()
 
-func findCloudCoverAtSunset(values: [Values], sunsetTime: String){
+func findCloudCoverAtSunset(values: [Values], sunsetPassed: Bool){
+    var sunsetTime:String
+    if(sunsetPassed == true){
+        sunsetTime = values.last!.sunset
+    } else {
+        sunsetTime = values.first!.sunset
+    }
+    
     var chars = Array(sunsetTime)
+    
     chars[14] = "0"
     chars[15] = "0"
     chars[17] = "0"
     chars[18] = "0"
 
     let correctedSunsetTime = String(chars)
+    
     values.forEach{ i in
         if(i.datetimeStr == correctedSunsetTime){
             print(i.cloudcover)
@@ -159,20 +180,29 @@ func findCloudCoverAtSunset(values: [Values], sunsetTime: String){
     return
 }
 
-func findCloudCoverAtSunrise(values: [Values], sunriseTime: String){
+func findCloudCoverAtSunrise(values: [Values],  sunrisePassed:Bool){
+    
+    var sunriseTime:String
+    if(sunrisePassed == true){
+        sunriseTime = values.last!.sunrise
+    } else {
+        sunriseTime = values.first!.sunrise
+    }
+    
     var chars = Array(sunriseTime)
     
-    chars[9] = "3"
     chars[14] = "0"
     chars[15] = "0"
     chars[17] = "0"
     chars[18] = "0"
 
     let correctedSunriseTime = String(chars)
+    
     values.forEach{ i in
         if(i.datetimeStr == correctedSunriseTime){
             print(i.cloudcover)
         }
     }
+     
     return
 }
