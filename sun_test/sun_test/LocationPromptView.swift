@@ -81,9 +81,8 @@ struct CurrentConditions:Codable{
     let windchill: Double?
 }
 
-let backgroundColor = LinearGradient(
-    colors: [Color.pink, Color.orange],
-    startPoint: .top, endPoint: .bottom)
+
+let backgroundColor = Color(red: 0.8, green: 0.8706, blue: 1)
 
 
 struct LocationPrompt: View {
@@ -91,7 +90,8 @@ struct LocationPrompt: View {
     @State private var state: String = ""
     @State var goToLocationPrompt = false
     @State var userLocation: String = ""
-
+    @State var thisSunriseCloudCover:Double = -1
+    @State var thisSunsetCloudCover:Double = -1
     
     var body: some View {
         NavigationView {
@@ -107,12 +107,11 @@ struct LocationPrompt: View {
                         TextField("Enter Your State", text: $state)
                             .textFieldStyle(.roundedBorder)
                         // this is to allow the button to open the LocationPromptView
-                        NavigationLink(destination: ContentView(userLocation: $userLocation), isActive: $goToLocationPrompt) { EmptyView() }
+                        NavigationLink(destination: ContentView(location: $userLocation, sunrisePer: $thisSunriseCloudCover, sunsetPer: $thisSunsetCloudCover), isActive: $goToLocationPrompt) { EmptyView() }
                             Button(action: {userLocation = city.replacingOccurrences(of: " ", with: "") + "," + state
                                 self.goToLocationPrompt = true
                                 print(userLocation)
-                                var thisSunriseCloudCover:Double = -1
-                                var thisSunsetCloudCover:Double = -1
+                                
                                 //(sunriseCloudCover,sunsetCloudCover) = decodeAPI(userLocation: userLocation)
                                 decodeAPI(userLocation: userLocation) { (sunriseCloudCover,sunsetCloudCover) in
                                     thisSunriseCloudCover = sunriseCloudCover

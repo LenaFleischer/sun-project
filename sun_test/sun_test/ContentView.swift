@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+let grayBlue = Color(red: 0.4353, green: 0.6392, blue: 0.8588)
+let gray = Color(red: 0.3098, green: 0.3765, blue: 0.4471)
 
 let backgroundGood = LinearGradient(
     colors: [Color.pink, Color.orange],
     startPoint: .top, endPoint: .bottom)
 let backgroundBad = LinearGradient(
-    colors: [Color.black, Color.blue],
+    colors: [gray, grayBlue],
     startPoint: .top, endPoint: .bottom)
 let backgroundFine = LinearGradient(
     colors: [Color.blue, Color.yellow],
@@ -28,16 +30,18 @@ struct ContentView: View {
     
     
     var body: some View {
-        let clouds = 50
-        let condition = getQuality(cloudCover: clouds)
+        let condition = getQuality(cloudCover: sunsetPer)
 
         if (condition == "good"){
             ZStack{
                 backgroundGood
                 VStack{
+                    Text(location)
+                        .foregroundColor(Color.white)
+                    Text("Cloud Cover \(String(sunsetPer))%")
+                        .foregroundColor(Color.white)
                     Text("Sunrise is good!")
                         .foregroundColor(Color.white)
-                        .padding()
                 }
             }
         }
@@ -45,8 +49,12 @@ struct ContentView: View {
             ZStack{
                 backgroundBad
                 VStack{
+                    Text(location)
+                        .foregroundColor(Color.white)
+                    Text("Cloud Cover \(String(sunsetPer))%")
+                        .foregroundColor(Color.white)
                     Text("Sunrise is bad!")
-                        .padding()
+                        .foregroundColor(Color.white)
                 }
             }
         }
@@ -55,10 +63,11 @@ struct ContentView: View {
                 backgroundFine
                 VStack{
                     Text(location)
-                    Text(String(sunsetPer))
-                    
+                        .foregroundColor(Color.white)
+                    Text("Cloud Cover \(String(sunsetPer))%")
+                        .foregroundColor(Color.white)
                     Text("Sunrise is fine!")
-                        .padding()
+                        .foregroundColor(Color.white)
                 }
             }
         }
@@ -67,16 +76,16 @@ struct ContentView: View {
 }
 
 
-func getQuality(cloudCover: Int) -> String{
+func getQuality(cloudCover: Double) -> String{
     var condition = ""
-    if (cloudCover < 25){
-        condition = "good"
+    if (cloudCover < 30){
+        condition = "fine"
     }
-    else if (cloudCover > 75){
+    else if (cloudCover > 60){
         condition = "bad"
     }
     else {
-        condition = "fine"
+        condition = "good"
     }
     return condition
 }
