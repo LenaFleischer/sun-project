@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 extension Date {
    static var tomorrow:  Date { return Date().dayAfter }
@@ -98,12 +99,19 @@ let backgroundColor = Color(red: 0.8, green: 0.8706, blue: 1)
 
 
 struct LocationPrompt: View {
+
     @State private var city: String = ""
     @State private var state: String = ""
     @State var goToLocationPrompt = false
     @State var userLocation: String = ""
     @State var thisSunriseCloudCover:Double = -1
     @State var thisSunsetCloudCover:Double = -1
+    
+    
+    //variables for location service
+    @StateObject var locationService = LocationService.shared
+    @State var tokens: Set<AnyCancellable> = []
+    @State var coordinates: (lat: Double, lon:Double) = (0,0)
     
     var body: some View {
         NavigationView {
@@ -113,6 +121,8 @@ struct LocationPrompt: View {
                 VStack {
                     Text("Welcome")
                         .font(.title)
+                    Text("Latitude: \(coordinates.lat)")
+                    Text("Longitude: \(coordinates.lon)")
                     HStack {
                         TextField("Enter Your City", text: $city)
                             .textFieldStyle(.roundedBorder)
@@ -140,9 +150,37 @@ struct LocationPrompt: View {
                         
                     }
                 }
+                .onAppear(){
+                    observeCoordinateUpdates()
+                    observeLocationAccessDenied()
+                    locationService.requestLocationUpdates()
+                }
             }
             
         }
+    }
+    
+    func observeCoordinateUpdates(){
+        locationService.coordinatesPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print(error)
+                }
+            } receiveValue: { coordinates in
+                self.coordinates = (coordinates.latitude, coordinates.longitude)
+            }
+            .store(in: &tokens)
+    }
+    
+    
+    func observeLocationAccessDenied(){
+        locationService.deniedLocationAccessPublisher
+            .receive(on: DispatchQueue.main)
+            .sink {
+                print("Show some kind of alert to the user")
+            }
+            .store(in: &tokens)
     }
 }
 
@@ -321,6 +359,8 @@ func findCloudCoverAtSunrise(values: [Values], sunrisePassed:Bool) -> Double {
     }
     return cloudcover
 }
+
+
 
 
 
