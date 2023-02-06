@@ -30,7 +30,7 @@ struct ContentView: View {
     
     
     var body: some View {
-        let condition = getQuality(cloudCover: sunsetPer)
+        let condition = getQuality(cloudCover: sunrisePer)
 
         if (condition == "good"){
             ZStack{
