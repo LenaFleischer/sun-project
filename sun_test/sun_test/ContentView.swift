@@ -27,53 +27,80 @@ struct ContentView: View {
     @Binding var sunrisePer: Double
     @Binding var sunsetPer: Double
     
-    
-    
-    var body: some View {
-        let condition = getQuality(cloudCover: sunrisePer)
+    private let states: [String] =  ["Sunset", "Sunrise"]
 
-        if (condition == "good"){
-            ZStack{
-                backgroundGood
-                VStack{
-                    Text(location)
-                        .foregroundColor(Color.white)
-                    Text("Cloud Cover \(String(sunrisePer))%")
-                        .foregroundColor(Color.white)
-                    Text("Sunrise is good!")
-                        .foregroundColor(Color.white)
+    var body: some View {
+        
+        VStack{
+            TabView{
+                ForEach(states, id: \.self){ state in
+                    ZStack{
+                        let percentageAndCondition = getPercentageAndCondition (riseOrSet: state)
+                        var cloudPercentage  = percentageAndCondition.0
+                        let condition = percentageAndCondition.1
+                        
+                        if (condition == "good"){
+                            ZStack{
+                                backgroundGood
+                                VStack{
+                                    Text(location)
+                                        .foregroundColor(Color.white)
+                                    Text("Cloud Cover \(String(cloudPercentage))%")
+                                        .foregroundColor(Color.white)
+                                    Text("\(state) is good!")
+                                        .foregroundColor(Color.white)
+                                }
+                            }
+                        }
+                        else if (condition == "bad"){
+                            ZStack{
+                                backgroundBad
+                                VStack{
+                                    Text(state)
+                                        .foregroundColor(Color.white)
+                                    Text(location)
+                                        .foregroundColor(Color.white)
+                                    Text("Cloud Cover \(String(cloudPercentage))%")
+                                        .foregroundColor(Color.white)
+                                    Text("\(state) is bad!")
+                                        .foregroundColor(Color.white)
+                                }
+                            }
+                        }
+                        else {
+                            ZStack{
+                                backgroundFine
+                                VStack{
+                                    Text(state)
+                                        .foregroundColor(Color.white)
+                                    Text(location)
+                                        .foregroundColor(Color.white)
+                                    Text("Cloud Cover \(String(cloudPercentage))%")
+                                        .foregroundColor(Color.white)
+                                    Text("\(state) is fine!")
+                                        .foregroundColor(Color.white)
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            .tabViewStyle(.page)
         }
-        else if (condition == "bad"){
-            ZStack{
-                backgroundBad
-                VStack{
-                    Text(location)
-                        .foregroundColor(Color.white)
-                    Text("Cloud Cover \(String(sunrisePer))%")
-                        .foregroundColor(Color.white)
-                    Text("Sunrise is bad!")
-                        .foregroundColor(Color.white)
-                }
-            }
+        
+    }
+    func getPercentageAndCondition (riseOrSet: String) -> (Double, String){
+        if (riseOrSet == "Sunrise"){
+            
+            return (sunrisePer, getQuality(cloudCover: sunrisePer))
         }
-        else {
-            ZStack{
-                backgroundFine
-                VStack{
-                    Text(location)
-                        .foregroundColor(Color.white)
-                    Text("Cloud Cover \(String(sunrisePer))%")
-                        .foregroundColor(Color.white)
-                    Text("Sunrise is fine!")
-                        .foregroundColor(Color.white)
-                }
-            }
+        else{
+            return (sunsetPer, getQuality(cloudCover: sunsetPer))
         }
         
     }
 }
+
 
 
 func getQuality(cloudCover: Double) -> String{
@@ -89,3 +116,4 @@ func getQuality(cloudCover: Double) -> String{
     }
     return condition
 }
+

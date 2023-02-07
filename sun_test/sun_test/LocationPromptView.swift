@@ -119,22 +119,46 @@ struct LocationPrompt: View {
             backgroundColor
             
                 VStack {
-                    Text("Welcome")
+                    Text("SunChase")
                         .font(.title)
                     Text("Latitude: \(coordinates.lat)")
                     Text("Longitude: \(coordinates.lon)")
+                    
+                    HStack{
+                        Text("Use Current Location")
+                        // use current location button
+                        NavigationLink(destination: ContentView(location: $userLocation, sunrisePer: $thisSunriseCloudCover, sunsetPer: $thisSunsetCloudCover), isActive: $goToLocationPrompt) { EmptyView() }
+                        Button(action: {
+                            self.goToLocationPrompt = true
+                            let roundedLat = Double(round(1000 * coordinates.lat) / 1000)
+                            let roundedLon = Double(round(1000 * coordinates.lon) / 1000)
+                            userLocation = String(roundedLat) + "," + String(roundedLon)
+                            decodeAPI(userLocation: userLocation) { (sunriseCloudCover,sunsetCloudCover) in
+                                thisSunriseCloudCover = sunriseCloudCover
+                                thisSunsetCloudCover = sunsetCloudCover
+                                
+                                print(thisSunriseCloudCover)
+                                print(thisSunsetCloudCover)
+                            }
+                            
+                        }
+                               , label: {
+                            Image(systemName: "arrow.right.square")
+                                .font(.title)
+                        })
+                    }
                     HStack {
                         TextField("Enter Your City", text: $city)
                             .textFieldStyle(.roundedBorder)
                         TextField("Enter Your State", text: $state)
                             .textFieldStyle(.roundedBorder)
+                        
                         // this is to allow the button to open the LocationPromptView
                         NavigationLink(destination: ContentView(location: $userLocation, sunrisePer: $thisSunriseCloudCover, sunsetPer: $thisSunsetCloudCover), isActive: $goToLocationPrompt) { EmptyView() }
                             Button(action: {userLocation = city.replacingOccurrences(of: " ", with: "") + "," + state
                                 self.goToLocationPrompt = true
                                 print(userLocation)
                                 
-                                //(sunriseCloudCover,sunsetCloudCover) = decodeAPI(userLocation: userLocation)
                                 decodeAPI(userLocation: userLocation) { (sunriseCloudCover,sunsetCloudCover) in
                                     thisSunriseCloudCover = sunriseCloudCover
                                     thisSunsetCloudCover = sunsetCloudCover
@@ -149,6 +173,7 @@ struct LocationPrompt: View {
                             })
                         
                     }
+                    
                 }
                 .onAppear(){
                     observeCoordinateUpdates()
@@ -195,7 +220,7 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)
     var sunsetCloudCover = -1.0
     var sunriseCloudCover = -1.0
     
-    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations="+userLocation+",CO&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
+    guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations="+userLocation+"&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
 
     let task = URLSession.shared.dataTask(with: url){
         data, response, error in

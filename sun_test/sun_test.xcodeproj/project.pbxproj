@@ -14,9 +14,9 @@
 		BF1DEA2D2988686300EB6D49 /* sun_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA2C2988686300EB6D49 /* sun_testTests.swift */; };
 		BF1DEA372988686400EB6D49 /* sun_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA362988686400EB6D49 /* sun_testUITests.swift */; };
 		BF1DEA392988686400EB6D49 /* sun_testUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA382988686400EB6D49 /* sun_testUITestsLaunchTests.swift */; };
+		E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D8CE32991C54B000B0760 /* LocationService.swift */; };
 		E164EF612989BF7E00EC1FF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E164EF602989BF7E00EC1FF1 /* Main.storyboard */; };
 		E1F19E46298ADC8F0064C986 /* LocationPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F19E45298ADC8F0064C986 /* LocationPromptView.swift */; };
-		E1F19E48298B09CA0064C986 /* LocationFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F19E47298B09CA0064C986 /* LocationFinder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,9 +47,9 @@
 		BF1DEA322988686400EB6D49 /* sun_testUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sun_testUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF1DEA362988686400EB6D49 /* sun_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testUITests.swift; sourceTree = "<group>"; };
 		BF1DEA382988686400EB6D49 /* sun_testUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E12D8CE32991C54B000B0760 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E164EF602989BF7E00EC1FF1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E1F19E45298ADC8F0064C986 /* LocationPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPromptView.swift; sourceTree = "<group>"; };
-		E1F19E47298B09CA0064C986 /* LocationFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFinder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,13 +100,13 @@
 		BF1DEA1A2988686100EB6D49 /* sun_test */ = {
 			isa = PBXGroup;
 			children = (
+				E12D8CE32991C54B000B0760 /* LocationService.swift */,
 				BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */,
 				BF1DEA1D2988686100EB6D49 /* ContentView.swift */,
 				BF1DEA1F2988686300EB6D49 /* Assets.xcassets */,
 				BF1DEA212988686300EB6D49 /* Preview Content */,
 				E164EF602989BF7E00EC1FF1 /* Main.storyboard */,
 				E1F19E45298ADC8F0064C986 /* LocationPromptView.swift */,
-				E1F19E47298B09CA0064C986 /* LocationFinder.swift */,
 			);
 			path = sun_test;
 			sourceTree = "<group>";
@@ -267,8 +267,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1F19E48298B09CA0064C986 /* LocationFinder.swift in Sources */,
 				BF1DEA1E2988686100EB6D49 /* ContentView.swift in Sources */,
+				E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */,
 				BF1DEA1C2988686100EB6D49 /* sun_testApp.swift in Sources */,
 				E1F19E46298ADC8F0064C986 /* LocationPromptView.swift in Sources */,
 			);
@@ -431,6 +431,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"sun_test/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow us to use location ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -459,6 +460,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"sun_test/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow us to use location ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
