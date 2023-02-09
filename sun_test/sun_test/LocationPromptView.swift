@@ -57,6 +57,11 @@ struct LocationPrompt: View {
                                     print(thisSunriseCloudCover)
                                     print(thisSunsetCloudCover)
                                 }
+                                getLocationFromLatLon(lat: roundedLat, lon: roundedLon) { (location)  in
+                                    userLocation = location
+                                    print(userLocation)
+                                }
+
                                 //userLocation = getLocationFromLatLon(lat: roundedLat, lon: roundedLon)
                                 
                             }

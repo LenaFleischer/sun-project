@@ -6,6 +6,19 @@
 
 import Foundation
 
+struct LocationInfo:Codable{
+    let name: String
+    let local_names: LocalNames
+    let lat: Double
+    let lon: Double
+    let country: String
+    let state: String
+}
+
+struct LocalNames:Codable{
+    let en: String
+}
+
 
 extension Date {
    static var tomorrow:  Date { return Date().dayAfter }
@@ -262,6 +275,23 @@ func findCloudCoverAtSunrise(values: [Values], sunrisePassed:Bool) -> Double {
 }
 
 
-func getLocationFromLatLon(lat: Double, lon: Double) -> String{
-    return "Your Location"
+func getLocationFromLatLon(lat: Double, lon: Double, completionHandler: @escaping (String)->Void){
+    guard let url = URL(string: "https://api.openweathermap.org/geo/1.0/reverse?lat=38.8339&lon=-104.8214&limit=1&appid=b8e47752de82ded76fddfd3f9608c08e") else{return}
+
+    let task = URLSession.shared.dataTask(with: url){
+        data, response, error in
+        
+        let decoder = JSONDecoder()
+
+        if let data = data{
+            do{
+                let locationinfo = try decoder.decode([LocationInfo].self, from: data)
+                let name = locationinfo.first!.name
+                completionHandler(name)
+            }catch{
+                print(error)
+            }
+        }
+    }
+    task.resume()
 }
