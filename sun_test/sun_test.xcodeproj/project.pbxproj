@@ -15,6 +15,8 @@
 		BF1DEA372988686400EB6D49 /* sun_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA362988686400EB6D49 /* sun_testUITests.swift */; };
 		BF1DEA392988686400EB6D49 /* sun_testUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA382988686400EB6D49 /* sun_testUITestsLaunchTests.swift */; };
 		E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D8CE32991C54B000B0760 /* LocationService.swift */; };
+		E1431A3029957BE0003D6596 /* newmodel.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = E1431A2F29957BE0003D6596 /* newmodel.mlpackage */; };
+		E1431A3229957C25003D6596 /* WeatherAPICalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1431A3129957C25003D6596 /* WeatherAPICalls.swift */; };
 		E164EF612989BF7E00EC1FF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E164EF602989BF7E00EC1FF1 /* Main.storyboard */; };
 		E1F19E46298ADC8F0064C986 /* LocationPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F19E45298ADC8F0064C986 /* LocationPromptView.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		BF1DEA362988686400EB6D49 /* sun_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testUITests.swift; sourceTree = "<group>"; };
 		BF1DEA382988686400EB6D49 /* sun_testUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E12D8CE32991C54B000B0760 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		E1431A2F29957BE0003D6596 /* newmodel.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = newmodel.mlpackage; path = ../../../../../Downloads/WindChill_CoreML_Story/Resources/newmodel.mlpackage; sourceTree = "<group>"; };
+		E1431A3129957C25003D6596 /* WeatherAPICalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherAPICalls.swift; sourceTree = "<group>"; };
 		E164EF602989BF7E00EC1FF1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E1F19E45298ADC8F0064C986 /* LocationPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPromptView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +104,8 @@
 		BF1DEA1A2988686100EB6D49 /* sun_test */ = {
 			isa = PBXGroup;
 			children = (
+				E1431A3129957C25003D6596 /* WeatherAPICalls.swift */,
+				E1431A2F29957BE0003D6596 /* newmodel.mlpackage */,
 				E12D8CE32991C54B000B0760 /* LocationService.swift */,
 				BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */,
 				BF1DEA1D2988686100EB6D49 /* ContentView.swift */,
@@ -269,6 +275,8 @@
 			files = (
 				BF1DEA1E2988686100EB6D49 /* ContentView.swift in Sources */,
 				E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */,
+				E1431A3029957BE0003D6596 /* newmodel.mlpackage in Sources */,
+				E1431A3229957C25003D6596 /* WeatherAPICalls.swift in Sources */,
 				BF1DEA1C2988686100EB6D49 /* sun_testApp.swift in Sources */,
 				E1F19E46298ADC8F0064C986 /* LocationPromptView.swift in Sources */,
 			);

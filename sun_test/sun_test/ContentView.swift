@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UIKit
+
 
 let grayBlue = Color(red: 0.4353, green: 0.6392, blue: 0.8588)
 let gray = Color(red: 0.3098, green: 0.3765, blue: 0.4471)
@@ -22,7 +24,6 @@ let backgroundFine = LinearGradient(
 
 struct ContentView: View {
     
-    let model = try! newmodel()
     
     //Binding allows us to get the location from a different view
     @Binding var location: String
@@ -38,6 +39,7 @@ struct ContentView: View {
                 ForEach(states, id: \.self){ state in
                         
                     ZStack{
+                        
                         let percentageAndCondition = getPercentageAndCondition (riseOrSet: state)
                         let cloudPercentage  = percentageAndCondition.0
                         let condition = percentageAndCondition.1
@@ -52,6 +54,7 @@ struct ContentView: View {
                             backgroundFine
                         }
                         VStack{
+                            
                             if (state == "Sunrise"){
                                 getImage(riseOrSet: state)
                                     .resizable()
@@ -87,6 +90,8 @@ struct ContentView: View {
             return (sunsetPer, getQuality(cloudCover: sunsetPer))
         }
     }
+    
+
 }
 
 func getQuality(cloudCover: Double) -> String{
@@ -111,3 +116,6 @@ func getImage(riseOrSet: String)-> Image{
         return Image("sunset")
     }
 }
+
+
+
