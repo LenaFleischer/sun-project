@@ -276,7 +276,9 @@ func findCloudCoverAtSunrise(values: [Values], sunrisePassed:Bool) -> Double {
 
 
 func getLocationFromLatLon(lat: Double, lon: Double, completionHandler: @escaping (String)->Void){
-    guard let url = URL(string: "https://api.openweathermap.org/geo/1.0/reverse?lat=38.8339&lon=-104.8214&limit=1&appid=b8e47752de82ded76fddfd3f9608c08e") else{return}
+    let latstring = String(format: "%f", lat)
+    let lonstring = String(format: "%f", lon)
+    guard let url = URL(string: "https://api.openweathermap.org/geo/1.0/reverse?lat="+latstring+"&lon="+lonstring+"&limit=1&appid=b8e47752de82ded76fddfd3f9608c08e") else{return}
 
     let task = URLSession.shared.dataTask(with: url){
         data, response, error in
