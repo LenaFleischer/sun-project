@@ -22,6 +22,8 @@ let backgroundFine = LinearGradient(
 
 struct ContentView: View {
     
+    let model = try! newmodel()
+    
     //Binding allows us to get the location from a different view
     @Binding var location: String
     @Binding var sunrisePer: Double
@@ -34,52 +36,40 @@ struct ContentView: View {
         VStack{
             TabView{
                 ForEach(states, id: \.self){ state in
+                        
                     ZStack{
                         let percentageAndCondition = getPercentageAndCondition (riseOrSet: state)
-                        var cloudPercentage  = percentageAndCondition.0
+                        let cloudPercentage  = percentageAndCondition.0
                         let condition = percentageAndCondition.1
-                        
+                        // these if statements change the background color
                         if (condition == "good"){
-                            ZStack{
-                                backgroundGood
-                                VStack{
-                                    Text(location)
-                                        .foregroundColor(Color.white)
-                                    Text("Cloud Cover \(String(cloudPercentage))%")
-                                        .foregroundColor(Color.white)
-                                    Text("\(state) is good!")
-                                        .foregroundColor(Color.white)
-                                }
-                            }
+                            backgroundGood
                         }
                         else if (condition == "bad"){
-                            ZStack{
-                                backgroundBad
-                                VStack{
-                                    Text(state)
-                                        .foregroundColor(Color.white)
-                                    Text(location)
-                                        .foregroundColor(Color.white)
-                                    Text("Cloud Cover \(String(cloudPercentage))%")
-                                        .foregroundColor(Color.white)
-                                    Text("\(state) is bad!")
-                                        .foregroundColor(Color.white)
-                                }
-                            }
+                            backgroundBad
                         }
-                        else {
-                            ZStack{
-                                backgroundFine
-                                VStack{
-                                    Text(state)
-                                        .foregroundColor(Color.white)
-                                    Text(location)
-                                        .foregroundColor(Color.white)
-                                    Text("Cloud Cover \(String(cloudPercentage))%")
-                                        .foregroundColor(Color.white)
-                                    Text("\(state) is fine!")
-                                        .foregroundColor(Color.white)
-                                }
+                        else{
+                            backgroundFine
+                        }
+                        VStack{
+                            if (state == "Sunrise"){
+                                getImage(riseOrSet: state)
+                                    .resizable()
+                                    .scaledToFit()
+                            }
+                            Text(location)
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 30, weight: .light, design: .serif))
+                            Text("Cloud Cover \(String(cloudPercentage))%")
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 30, weight: .light, design: .serif))
+                            Text("\(state) is \(condition)!")
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 30, weight: .light, design: .serif))
+                            if (state == "Sunset"){
+                                getImage(riseOrSet: state)
+                                    .resizable()
+                                    .scaledToFit()
                             }
                         }
                     }
@@ -87,7 +77,6 @@ struct ContentView: View {
             }
             .tabViewStyle(.page)
         }
-        
     }
     func getPercentageAndCondition (riseOrSet: String) -> (Double, String){
         if (riseOrSet == "Sunrise"){
@@ -97,11 +86,8 @@ struct ContentView: View {
         else{
             return (sunsetPer, getQuality(cloudCover: sunsetPer))
         }
-        
     }
 }
-
-
 
 func getQuality(cloudCover: Double) -> String{
     var condition = ""
@@ -117,3 +103,11 @@ func getQuality(cloudCover: Double) -> String{
     return condition
 }
 
+func getImage(riseOrSet: String)-> Image{
+    if (riseOrSet == "Sunrise"){
+        return Image("sunrise")
+    }
+    else{
+        return Image("sunset")
+    }
+}
