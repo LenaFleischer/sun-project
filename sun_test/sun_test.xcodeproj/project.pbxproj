@@ -15,6 +15,8 @@
 		BF1DEA372988686400EB6D49 /* sun_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA362988686400EB6D49 /* sun_testUITests.swift */; };
 		BF1DEA392988686400EB6D49 /* sun_testUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA382988686400EB6D49 /* sun_testUITestsLaunchTests.swift */; };
 		E11BD435299AAB8F009A82F1 /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11BD434299AAB8F009A82F1 /* iOSDropDown.swift */; };
+		E11BD437299ABFD7009A82F1 /* CompositePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11BD436299ABFD7009A82F1 /* CompositePage.swift */; };
+		E11BD43B299AE91C009A82F1 /* AddLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11BD43A299AE91C009A82F1 /* AddLocation.swift */; };
 		E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D8CE32991C54B000B0760 /* LocationService.swift */; };
 		E1431A3029957BE0003D6596 /* newmodel.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = E1431A2F29957BE0003D6596 /* newmodel.mlpackage */; };
 		E1431A3229957C25003D6596 /* WeatherAPICalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1431A3129957C25003D6596 /* WeatherAPICalls.swift */; };
@@ -53,6 +55,8 @@
 		BF1DEA362988686400EB6D49 /* sun_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testUITests.swift; sourceTree = "<group>"; };
 		BF1DEA382988686400EB6D49 /* sun_testUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E11BD434299AAB8F009A82F1 /* iOSDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSDropDown.swift; sourceTree = "<group>"; };
+		E11BD436299ABFD7009A82F1 /* CompositePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositePage.swift; sourceTree = "<group>"; };
+		E11BD43A299AE91C009A82F1 /* AddLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocation.swift; sourceTree = "<group>"; };
 		E12D8CE32991C54B000B0760 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E1431A2F29957BE0003D6596 /* newmodel.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = newmodel.mlpackage; path = ../../../../../Downloads/WindChill_CoreML_Story/Resources/newmodel.mlpackage; sourceTree = "<group>"; };
 		E1431A3129957C25003D6596 /* WeatherAPICalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherAPICalls.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				E1F19E45298ADC8F0064C986 /* LocationPromptView.swift */,
 				E1431A392995C7C2003D6596 /* ParseUSCities.swift */,
 				E11BD434299AAB8F009A82F1 /* iOSDropDown.swift */,
+				E11BD436299ABFD7009A82F1 /* CompositePage.swift */,
+				E11BD43A299AE91C009A82F1 /* AddLocation.swift */,
 			);
 			path = sun_test;
 			sourceTree = "<group>";
@@ -283,6 +289,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E11BD43B299AE91C009A82F1 /* AddLocation.swift in Sources */,
+				E11BD437299ABFD7009A82F1 /* CompositePage.swift in Sources */,
 				BF1DEA1E2988686100EB6D49 /* ContentView.swift in Sources */,
 				E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */,
 				E1431A3029957BE0003D6596 /* newmodel.mlpackage in Sources */,

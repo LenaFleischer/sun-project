@@ -36,8 +36,6 @@ struct LocationPrompt: View {
             
                 VStack {
                     Image("Logo")
-//                    Text("Latitude: \(coordinates.lat)")
-//                    Text("Longitude: \(coordinates.lon)")
                     
                     HStack{
                         if (coordinates.lat != 0 && coordinates.lon != 0){
@@ -62,7 +60,7 @@ struct LocationPrompt: View {
                                     print(userLocation)
                                 }
 
-                                //userLocation = getLocationFromLatLon(lat: roundedLat, lon: roundedLon)
+                                
                                 
                             }
                                    , label: {
@@ -81,7 +79,6 @@ struct LocationPrompt: View {
                         TextField("Enter Your State", text: $state)
                             .textFieldStyle(.roundedBorder)
                             .font(.system(size: 20, weight: .light, design: .serif))
-
 
                         
                         // this is to allow the button to open the LocationPromptView

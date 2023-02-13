@@ -11,7 +11,8 @@ import SwiftUI
 struct sun_testApp: App {
     var body: some Scene {
         WindowGroup {
-            LocationPrompt()
+            //LocationPrompt()
+            CompositePage()
         }
     }
 }
