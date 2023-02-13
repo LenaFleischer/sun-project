@@ -81,6 +81,8 @@ struct LocationPrompt: View {
                         TextField("Enter Your State", text: $state)
                             .textFieldStyle(.roundedBorder)
                             .font(.system(size: 20, weight: .light, design: .serif))
+
+
                         
                         // this is to allow the button to open the LocationPromptView
                         NavigationLink(destination: ContentView(location: $userLocation, sunrisePer: $thisSunriseCloudCover, sunsetPer: $thisSunsetCloudCover), isActive: $goToLocationPrompt) { EmptyView() }
