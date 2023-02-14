@@ -71,8 +71,6 @@ struct LocationPrompt: View {
                         
                     }
                     HStack {
-                        let dict = convertCSVIntoArray()
-                        let states = Array(dict.keys)
                         TextField("Enter Your City", text: $city)
                             .textFieldStyle(.roundedBorder)
                             .font(.system(size: 20, weight: .light, design: .serif))
