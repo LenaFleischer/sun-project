@@ -29,7 +29,7 @@ struct ContentView: View {
     @Binding var location: String
     @Binding var sunrisePer: Double
     @Binding var sunsetPer: Double
-    
+ 
     private let states: [String] =  ["Sunset", "Sunrise"]
 
     var body: some View {

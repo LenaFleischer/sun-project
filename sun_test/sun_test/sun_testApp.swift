@@ -12,7 +12,7 @@ struct sun_testApp: App {
     var body: some Scene {
         WindowGroup {
             //LocationPrompt()
-            CompositePage()
+            AddLocation()
         }
     }
 }
