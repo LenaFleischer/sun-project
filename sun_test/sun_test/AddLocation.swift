@@ -47,7 +47,7 @@ struct AddLocation: View {
                         }
                     }
                     
-                    NavigationLink(destination: CompositePage(locationArray: $locationArray, sunsetCoverArr: $thisSunsetCloudCover, sunriseCoverArr: $thisSunriseCloudCover), isActive: $goToCompositePage) { EmptyView() }
+                   NavigationLink(destination: CompositePage(locationArray: $locationArray, sunsetCoverArr: $thisSunsetCloudCover, sunriseCoverArr: $thisSunriseCloudCover), isActive: $goToCompositePage) { EmptyView() }
                     Button(action: {
                         goToCompositePage = true
                         decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunriseCloudCover,sunsetCloudCover) in
