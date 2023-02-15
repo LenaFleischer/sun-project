@@ -8,14 +8,15 @@
 
 import SwiftUI
 
-
 struct AddLocation: View {
     @State var goToCompositePage = false
     @State var location: String = ""
     @State var locationArray: [String] = []
     @State var thisSunriseCloudCover: Double = -1
     @State var thisSunsetCloudCover: Double = -1
-//    @State var locDict: [String: [Double]]
+    //@State var locDict: [String: [Double]]
+    
+    @ObservedObject private var autocomplete = AutocompleteObject()
     
     var body: some View {
         NavigationView{
@@ -28,6 +29,18 @@ struct AddLocation: View {
                         .background(Color.white)
                         .opacity(0.2)
                         .padding()
+                        .onChange(of: location) { newValue in
+                            autocomplete.autocomplete(location)
+                        }
+                    LazyVStack {
+                        ForEach(autocomplete.suggestions, id: \.self) { suggestion in
+                            Text(suggestion)
+                            .font(.custom("Inter", size: 20))
+                            .onTapGesture {
+                                location = suggestion
+                            }
+                        }
+                    }
                     
                     NavigationLink(destination: CompositePage(locationArray: $locationArray, sunsetCoverArr: $thisSunsetCloudCover, sunriseCoverArr: $thisSunriseCloudCover), isActive: $goToCompositePage) { EmptyView() }
                     Button(action: {
