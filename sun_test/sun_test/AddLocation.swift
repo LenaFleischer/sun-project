@@ -12,9 +12,6 @@ struct AddLocation: View {
     @State var goToCompositePage = false
     @State var location: String = ""
     @State var locationArray: [String] = []
-    @State var thisSunriseCloudCover: Double = -1
-    @State var thisSunsetCloudCover: Double = -1
-    //@State var locDict: [String: [Double]]
     
     @ObservedObject private var autocomplete = AutocompleteObject()
     
@@ -47,17 +44,12 @@ struct AddLocation: View {
                         }
                     }
                     
-                   NavigationLink(destination: CompositePage(locationArray: $locationArray, sunsetCoverArr: $thisSunsetCloudCover, sunriseCoverArr: $thisSunriseCloudCover), isActive: $goToCompositePage) { EmptyView() }
+                   NavigationLink(destination: CompositePage(locationArray: $locationArray), isActive: $goToCompositePage) { EmptyView() }
                     Button(action: {
                         goToCompositePage = true
                         decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunriseCloudCover,sunsetCloudCover) in
-                            thisSunriseCloudCover = sunriseCloudCover
-                            thisSunsetCloudCover = sunsetCloudCover
                             locationArray.append(location)
-                            print(locationArray)
-                            print(thisSunriseCloudCover)
-                            print(thisSunsetCloudCover)
-                            
+                            locDict[location] = [sunriseCloudCover, sunsetCloudCover]
                         }
                         
                     }

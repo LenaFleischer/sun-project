@@ -1,7 +1,5 @@
 import SwiftUI
 
-
-
 let orangey = Color(red: 1.00, green: 0.73, blue: 0.47)
 let pinky = Color(red: 1.00, green: 0.54, blue: 0.54)
 
@@ -9,18 +7,12 @@ let backgroundC = LinearGradient(
     colors: [pinky, orangey],
     startPoint: .top, endPoint: .bottom)
 
-public var locDict: [String: [String]] = [:]
+public var locDict: [String: [Double]] = [:]
 
 struct CompositePage: View {
     @Binding var locationArray: [String]
-    @Binding var sunsetCoverArr: Double
-    @Binding var sunriseCoverArr: Double
-    //    @Binding var locDict: [String: [Double]]
-    
     @State var goToAddLocation = false
-    //@State var locDict: [String: [String]]
-    
-    
+
     var body: some View {
         
         NavigationView{
@@ -30,13 +22,9 @@ struct CompositePage: View {
                         ZStack{
                             backgroundC
                             VStack{
-                                
-                              //  var index = locationArray.index(of: location)
-                               // var sunriseCover = getAstheticQuality(cloudCover: sunriseCoverArr[locationArray.firstIndex(of: location) ?? 0])
-                                //var sunsetCover = getAstheticQuality(cloudCover: sunsetCoverArr[locationArray.firstIndex(of: location) ?? 0])
-                                var sunriseCover = getAstheticQuality(cloudCover: sunriseCoverArr)
-                                var sunsetCover = getAstheticQuality(cloudCover: sunsetCoverArr)
-                                //locDict[location] = [sunriseCover, sunsetCover]
+                                let cloudCoverArr = locDict[location]
+                                let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
+                                let sunsetCover = getAstheticQuality(cloudCover: cloudCoverArr?[1] ?? -1)
                                 
                                 Text(location)
                                     .foregroundColor(Color.white)
@@ -152,7 +140,7 @@ struct CompositePage: View {
                                     .font(.system(size: 30, weight: .light, design: .serif))
                                 
                                 
-                                NavigationLink(destination: AddLocation(locationArray: locationArray, thisSunriseCloudCover: sunriseCoverArr, thisSunsetCloudCover: sunsetCoverArr), isActive: $goToAddLocation) { EmptyView() }
+                                NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
                                 Button(action: {
                                     goToAddLocation = true}
                                        , label: {
@@ -189,6 +177,7 @@ func getAstheticQuality(cloudCover: Double) -> String{
         return "good"
     }
 }
+
 
 
 
