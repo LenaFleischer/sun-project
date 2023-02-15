@@ -35,7 +35,12 @@ struct AddLocation: View {
                     LazyVStack {
                         ForEach(autocomplete.suggestions, id: \.self) { suggestion in
                             Text(suggestion)
-                            .font(.custom("Inter", size: 20))
+                            .font(
+                                .custom("Inter", size: 20)
+                                .weight(.semibold)
+                            )
+                            .foregroundColor(.white)
+                            .padding([.bottom],5)
                             .onTapGesture {
                                 location = suggestion
                             }
