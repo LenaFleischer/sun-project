@@ -20,6 +20,10 @@ struct AddLocation: View {
             ZStack{
                 backgroundC
                 VStack{
+                    Image("introSun")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
                     TextField("Enter Your Location", text: $location)
                         .textFieldStyle(.roundedBorder)
                         .font(.system(size: 20, weight: .light, design: .serif))
