@@ -1,0 +1,600 @@
+Newark,NJ
+Peoria,IL
+O'Fallon,MO
+Hampton,VA
+Lakewood,CO
+Mesa,AZ
+Bryan,TX
+Garland,TX
+Springfield,IL
+Flint,MI
+Tacoma,WA
+Waterbury,CT
+Eagan,MN
+Fort Smith,AR
+Carmichael,CA
+Daly City,CA
+Murrieta,CA
+Brentwood,NY
+Quincy,MA
+Boulder,CO
+Evanston,IL
+Dothan,AL
+Antioch,CA
+Madison,WI
+Victorville,CA
+Billings,MT
+Sandy Springs,GA
+Iowa City,IA
+Largo,FL
+Shreveport,LA
+Kalamazoo,MI
+Round Rock,TX
+Richmond,CA
+Columbia,MO
+Sandy,UT
+Hoover,AL
+Fullerton,CA
+Rapid City,SD
+Newport Beach,CA
+Columbus,GA
+Palm Coast,FL
+Albany,GA
+Jurupa Valley,CA
+Providence,RI
+Decatur,IL
+Scranton,PA
+Anaheim,CA
+Rochester,NY
+Buffalo,NY
+Richmond,VA
+Santa Ana,CA
+Sunnyvale,CA
+Milwaukee,WI
+Conroe,TX
+Savannah,GA
+German,MD
+Costa Mesa,CA
+New Haven,CT
+Westland,MI
+Waldorf,MD
+Cedar Rapids,IA
+Troy,MI
+Kirkland,WA
+Santa Barbara,CA
+Lake Forest,CA
+Chino,CA
+Tucson,AZ
+Boise,ID
+Joliet,IL
+Metairie,LA
+Moreno Valley,CA
+Elizabeth,NJ
+Wyoming,MI
+Norman,OK
+Frisco,TX
+Waterloo,IA
+Oakland,CA
+Jonesboro,AR
+Springfield,MO
+Mission,TX
+Midland,TX
+Lansing,MI
+Springdale,AR
+Bay,TX
+Apple Valley,CA
+Brockton,MA
+Poinciana,FL
+Davis,CA
+Springfield,MA
+Saint Louis,MO
+St. Louis,MO
+Lehigh Acres,FL
+Henderson,NV
+Frederick,MD
+Vacaville,CA
+Laredo,TX
+El Cajon,CA
+Lorain,OH
+Johns Creek,GA
+Cicero,IL
+Rio Rancho,NM
+Atlanta,GA
+Concord,CA
+Marysville,WA
+South San Francisco,CA
+Portsmouth,VA
+Norwalk,CA
+Alhambra,CA
+Carson,CA
+Everett,WA
+Citrus Heights,CA
+North Little Rock,AR
+Atascocita,TX
+Erie,PA
+Fresno,CA
+Jacksonville,FL
+High Point,NC
+Pearland,TX
+Brownsville,TX
+Denton,TX
+San Bernardino,CA
+Mesquite,TX
+Sioux Falls,SD
+Charleston,SC
+Redwood City,CA
+Paradise,NV
+Upland,CA
+Paterson,NJ
+Pasco,WA
+Lubbock,TX
+Schenectady,NY
+Worcester,MA
+Cedar Park,TX
+Pembroke Pines,FL
+West Covina,CA
+Edmond,OK
+Columbia,MD
+Raleigh,NC
+Compton,CA
+Amarillo,TX
+Chesapeake,VA
+Glendale,AZ
+Corona,CA
+Broken Arrow,OK
+Fort Lauderdale,FL
+Fayetteville,NC
+Hartford,CT
+Warwick,RI
+Charlotte,NC
+Jersey City,NJ
+Westminster,CO
+Long Beach,CA
+Coral Springs,FL
+Spokane Valley,WA
+Mayagüez,PR
+San Diego,CA
+Chandler,AZ
+Pine Hills,FL
+Tulsa,OK
+Hawthorne,CA
+Portland,OR
+Tampa,FL
+Arlington,VA
+Sunrise Manor,NV
+Longmont,CO
+Macon,GA
+Arden-Arcade,CA
+Redlands,CA
+Anchorage,AK
+Missoula,MT
+Mobile,AL
+Newton,MA
+Baton Rouge,LA
+Cincinnati,OH
+Longview,TX
+Santa Rosa,CA
+Fairfield,CA
+Centennial,CO
+Fremont,CA
+New Braunfels,TX
+Elk Grove,CA
+Norfolk,VA
+Pompano Beach,FL
+Redondo Beach,CA
+Jackson,MS
+Saint Petersburg,FL
+St. Petersburg,FL
+Casas Adobes,AZ
+Gilbert,AZ
+Fargo,ND
+Kansas City,MO
+Berkeley,CA
+Santa Clara,CA
+Kansas City,KS
+Maple Grove,MN
+Lynchburg,VA
+Yonkers,NY
+Toms River,NJ
+Cambridge,MA
+Spring Valley,NV
+Wilmington,DE
+Edinburg,TX
+Glendale,CA
+Abilene,TX
+Bismarck,ND
+Lawton,OK
+Rockford,IL
+Redding,CA
+Johnson City,TN
+San Tan Valley,AZ
+Provo,UT
+Deerfield Beach,FL
+Alexandria,VA
+Portland,ME
+East Los Angeles,CA
+Warren,MI
+Auburn,WA
+Kissimmee,FL
+Grand Prairie,TX
+Chattanooga,TN
+Ontario,CA
+Visalia,CA
+Clarksville,TN
+Kennewick,WA
+Pasadena,TX
+Saint George,UT
+St. George,UT
+Davie,FL
+Clearwater,FL
+Port Saint Lucie,FL
+Pittsburg,CA
+Medford,OR
+North Richland Hills,TX
+Skokie,IL
+Missouri City,TX
+Miramar,FL
+Union City,CA
+West Jordan,UT
+Evansville,IN
+The Woodlands,TX
+Town 'n' Country,FL
+Rochester Hills,MI
+Suffolk,VA
+Colorado Springs,CO
+Lewisville,TX
+Santa Maria,CA
+Mount Pleasant,SC
+Schaumburg,IL
+Manteca,CA
+Birmingham,AL
+Aurora,CO
+Rockville,MD
+Roswell,GA
+Knoxville,TN
+San Marcos,CA
+Vallejo,CA
+San Francisco,CA
+Muncie,IN
+Las Cruces,NM
+Sioux City,IA
+Ellicott City,MD
+Fontana,CA
+Waukegan,IL
+Eugene,OR
+Hollywood,FL
+Walnut Creek,CA
+San Mateo,CA
+Killeen,TX
+Mount Vernon,NY
+Akron,OH
+Flagstaff,AZ
+Davenport,IA
+Wichita,KS
+South Bend,IN
+Livonia,MI
+Bloomington,MN
+Beaumont,TX
+Phoenix,AZ
+Torrance,CA
+Loveland,CO
+Buena Park,CA
+McKinney,TX
+Temecula,CA
+New Bedford,MA
+Toledo,OH
+Avondale,AZ
+Brooklyn Park,MN
+Inglewood,CA
+Chicago,IL
+Boca Raton,FL
+Overland Park,KS
+Oshkosh,WI
+Fort Myers,FL
+Pasadena,CA
+Indio,CA
+Farmington Hills,MI
+Baldwin Park,CA
+Bellevue,WA
+Gary,IN
+Dayton,OH
+Laguna Niguel,CA
+Syracuse,NY
+Indianapolis,IN
+San Jose,CA
+Topeka,KS
+Arvada,CO
+Denver,CO
+Greeley,CO
+Tustin,CA
+Fort Wayne,IN
+Shawnee,KS
+Bethlehem,PA
+Somerville,MA
+Sparks,NV
+Rialto,CA
+Pomona,CA
+Kenosha,WI
+Racine,WI
+Garden Grove,CA
+Detroit,MI
+Temple,TX
+Mountain View,CA
+Omaha,NE
+Scottsdale,AZ
+Union City,NJ
+New Britain,CT
+Kenner,LA
+Allen,PA
+Pleasanton,CA
+Gulfport,MS
+Wilmington,NC
+Centreville,VA
+Escondido,CA
+Fishers,IN
+Brandon,FL
+Kendall,FL
+Albany,NY
+Saint Charles,MO
+St. Charles,MO
+Danbury,CT
+Hemet,CA
+Cleveland,OH
+Thornton,CO
+Columbia,SC
+Enterprise,NV
+Bk,CA
+Houston,TX
+Oceanside,CA
+Orange,CA
+Carlsbad,CA
+Silver Spring,MD
+Corpus Christi,TX
+Montgomery,AL
+Ogden,UT
+Nashua,NH
+Lakeland,FL
+Beaverton,OR
+Wichita Falls,TX
+Boynton Beach,FL
+Murfreesboro,TN
+Champaign,IL
+Pueblo,CO
+Sugar Land,TX
+North Las Vegas,NV
+Yorba Linda,CA
+Fayetteville,AR
+Irvine,CA
+Youngs,OH
+Modesto,CA
+Lake Charles,LA
+Plymouth,MN
+Santa Monica,CA
+Bakersfield,CA
+Cranston,RI
+Tempe,AZ
+Arlington,TX
+Lauderhill,FL
+Green Bay,WI
+Lincoln,NE
+Perris,CA
+Meridian,ID
+Spring Hill,FL
+Orlando,FL
+Bend,OR
+Huntington Beach,CA
+Livermore,CA
+Waco,TX
+Los Angeles,CA
+Oklahoma City,OK
+San Juan,PR
+Yakima,WA
+Simi Valley,CA
+Roanoke,VA
+Hialeah,FL
+Lafayette,IN
+Palm Bay,FL
+Cary,NC
+Highlands Ranch,CO
+Fort Collins,CO
+Franklin,TN
+Fall River,MA
+Asheville,NC
+Albuquerque,NM
+Jacksonville,NC
+El Monte,CA
+Santa Clarita,CA
+Memphis,TN
+San Ramon,CA
+Hillsboro,OR
+Gaithersburg,MD
+Vista,CA
+Rochester,MN
+Arlington Heights,IL
+Las Vegas,NV
+Turlock,CA
+Bellingham,WA
+Pawtucket,RI
+Lawrence,KS
+Gastonia,NC
+Chico,CA
+Allen,TX
+Miami,FL
+Naperville,IL
+Grand Rapids,MI
+Richardson,TX
+Yuma,AZ
+Aurora,IL
+Lancaster,CA
+Rancho Cordova,CA
+Goodyear,AZ
+Fort Worth,TX
+Jackson,TN
+Clovis,CA
+Roseville,CA
+Lakewood,CA
+Framingham,MA
+Spokane,WA
+Urban Honolulu,HI
+Independence,MO
+Peoria,AZ
+Yuba City,CA
+Tuscaloosa,AL
+Palatine,IL
+San Angelo,TX
+Napa,CA
+Olathe,KS
+Norwalk,CT
+Nampa,ID
+San Clemente,CA
+Cheektowaga,NY
+Plano,TX
+Merced,CA
+Salem,OR
+Lowell,MA
+Glen Burnie,MD
+Hesperia,CA
+Clifton,NJ
+Whittier,CA
+Dale City,VA
+Hayward,CA
+Woodbury,MN
+Dearborn,MI
+Ann Arbor,MI
+Bayamón,PR
+Hammond,IN
+Bossier City,LA
+Salinas,CA
+Washington,DC
+New York,NY
+Eau Claire,WI
+Sterling Heights,MI
+College Station,TX
+Canton,OH
+Miami Beach,FL
+Southfield,MI
+Victoria,TX
+Des Moines,IA
+Bolingbrook,IL
+Bloomington,IN
+The Villages,FL
+Oxnard,CA
+West Valley City,UT
+Appleton,WI
+Deltona,FL
+North Charleston,SC
+Carrollton,TX
+Greenville,NC
+Salt Lake City,UT
+Westminster,CA
+Bayonne,NJ
+Homestead,FL
+Camarillo,CA
+Lafayette,LA
+Santa Fe,NM
+Little Rock,AR
+Boston,MA
+Lynn,MA
+Tallahassee,FL
+San Antonio,TX
+Winston-Salem,NC
+Rock Hill,SC
+Dallas,TX
+Parma,OH
+Carmel,IN
+Saint Cloud,MN
+St. Cloud,MN
+Delray Beach,FL
+West Palm Beach,FL
+Seattle,WA
+El Paso,TX
+Riverview,FL
+Renton,WA
+Ames,IA
+Trenton,NJ
+Sunrise,FL
+Odessa,TX
+Pharr,TX
+Milpitas,CA
+McAllen,TX
+Elgin,IL
+Passaic,NJ
+Lawrence,MA
+East Orange,NJ
+Alameda,CA
+South Gate,CA
+Durham,NC
+League City,TX
+Folsom,CA
+Flower Mound,TX
+Alafaya,FL
+Virginia Beach,VA
+Stamford,CT
+Gresham,OR
+Palmdale,CA
+Saint Joseph,MO
+St. Joseph,MO
+Riverside,CA
+Nashville,TN
+Caguas,PR
+Pittsburgh,PA
+Surprise,AZ
+Federal Way,WA
+Downey,CA
+Irving,TX
+Tracy,CA
+Manchester,NH
+Chula Vista,CA
+Waukesha,WI
+Lee's Summit,MO
+Newport News,VA
+Weston,FL
+Concord,NC
+New Rochelle,NY
+Bloomington,IL
+Florence-Graham,CA
+Cape Coral,FL
+Bridgeport,CT
+Plantation,FL
+Orem,UT
+Lexington-Fayette  county,KY
+Layton,UT
+Warner Robins,GA
+Palo Alto,CA
+Stockton,CA
+Austin,TX
+Broomfield,CO
+Philadelphia,PA
+Columbus,OH
+Reading,PA
+Mission Viejo,CA
+New Orleans,LA
+Reno,NV
+Rancho Cucamonga,CA
+Greensboro,NC
+Saint Paul,MN
+St. Paul,MN
+Thousand Oaks,CA
+Sacramento,CA
+Kent,WA
+Miami Gardens,FL
+Melbourne,FL
+Duluth,MN
+Carolina,PR
+Baltimore,MD
+Vancouver,WA
+Minneapolis,MN
+San Buenaventura,CA
+Harlingen,TX
+San Leandro,CA
+Tyler,TX
+Lynwood,CA
+Menifee,CA
+Huntsville,AL
+Gainesville,FL
+Chino Hills,CA
+Bellflower,CA
+Camden,NJ
+South Jordan,UT
+Guaynabo,PR
+Ponce,PR
