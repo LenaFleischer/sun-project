@@ -23,7 +23,11 @@ struct CompositePage: View {
                     ForEach(locationArray, id: \.self){ location in
                         ZStack{
                             backgroundC
-                           
+                            Image("splitCircle")
+                                .resizable()
+                                .scaledToFit()
+                                .opacity(0.3)
+                                .padding()
                             VStack{
                                 let cloudCoverArr = locDict[location]
                                 let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
@@ -32,6 +36,8 @@ struct CompositePage: View {
                                 Text(location)
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
+                                    //.frame(alignment: .top)
+                                    .frame(maxHeight: .infinity, alignment: .top)
                                 Text("sunrise")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
@@ -80,12 +86,14 @@ struct CompositePage: View {
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
                                 
-                                Image("splitCircle")
+                                /*Image("splitCircle")
                                     .resizable()
                                     .scaledToFit()
                                     .opacity(0.3)
                                     .padding()
-                                
+                                */
+                                Spacer()
+                                    .frame(height: 65)
 
                                 Text("prediction: \(sunsetCover)")
                                     .foregroundColor(Color.white)
@@ -130,16 +138,7 @@ struct CompositePage: View {
                                     }
                                     
                                 }
-                                
-                                
-                             /*   Image("splitCircle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .opacity(0.3)
-                                    .padding()
-                                    //.overlay(ImageOverlay().scaledToFit())
-                                
-                                */
+                            
                                 
                                 Text("sunset")
                                     .foregroundColor(Color.white)
@@ -159,6 +158,7 @@ struct CompositePage: View {
                                             Image(systemName: "trash")
                                                 .imageScale(.medium)
                                                 .foregroundColor(Color.white)
+                                                .frame(maxHeight: .infinity, alignment: .bottom)
                                         })
                                     }
                                     
@@ -168,6 +168,7 @@ struct CompositePage: View {
                                            , label: {
                                         Image("add")
                                             .imageScale(.medium)
+                                            .frame(maxHeight: .infinity, alignment: .bottom)
                                             
                                     })
                                 }

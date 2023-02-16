@@ -50,7 +50,6 @@
 		4D017025299C1A87007BF7E9 /* AutocompleteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteObject.swift; sourceTree = "<group>"; };
 		4D0F2381299D5E4500EC22DE /* newmodel.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = newmodel.mlpackage; sourceTree = "<group>"; };
 		4D0F2383299D9BDE00EC22DE /* magnifyingglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magnifyingglass.png; sourceTree = "<group>"; };
-		4D0F2388299DA9FD00EC22DE /* sun-test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "sun-test-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BF1DEA182988686100EB6D49 /* sun_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testApp.swift; sourceTree = "<group>"; };
 		BF1DEA1D2988686100EB6D49 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -117,7 +116,6 @@
 		BF1DEA1A2988686100EB6D49 /* sun_test */ = {
 			isa = PBXGroup;
 			children = (
-				4D0F2388299DA9FD00EC22DE /* sun-test-Info.plist */,
 				E1431A3129957C25003D6596 /* WeatherAPICalls.swift */,
 				E12D8CE32991C54B000B0760 /* LocationService.swift */,
 				BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */,
