@@ -40,16 +40,16 @@ final class AutocompleteObject: ObservableObject {
 
             let newSuggestions = await citiesCache.lookup(prefix: text)
 
-            if isSuggestion(in: suggestions, equalTo: text) {
+            //if isSuggestion(in: suggestions, equalTo: text) {
                 // Do not offer only one suggestion same as the input
                 suggestions = []
-            } else {
+            //} else {
                 if(newSuggestions.count > 5){
                     suggestions = Array(newSuggestions[...4])
                 } else {
                     suggestions = newSuggestions
                 }
-            }
+            //}
         }
     }
 
