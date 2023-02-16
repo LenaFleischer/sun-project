@@ -6,16 +6,26 @@
 //
 
 
+
+import Foundation
 import SwiftUI
+import Combine
+import UIKit
+import CoreML
 
 struct AddLocation: View {
     @State var goToCompositePage = false
     @State var location: String = ""
     @State var locationArray: [String] = []
+    @State var currLocation: String = ""
 
     @State var printError = false
     
     @ObservedObject private var autocomplete = AutocompleteObject()
+        //variables for location service
+    @StateObject var locationService = LocationService.shared
+    @State var tokens: Set<AnyCancellable> = []
+    @State var coordinates: (lat: Double, lon:Double) = (0,0)
     
     var body: some View {
         NavigationView{
@@ -60,6 +70,23 @@ struct AddLocation: View {
                     
                    NavigationLink(destination: CompositePage(locationArray: $locationArray), isActive: $goToCompositePage) { EmptyView() }
                     Button(action: {
+                         if (coordinates.lat != 0 && coordinates.lon != 0 && currLocation == ""){
+                            let roundedLat = Double(round(1000 * coordinates.lat) / 1000)
+                            let roundedLon = Double(round(1000 * coordinates.lon) / 1000)
+                            let userLocation = String(roundedLat) + "," + String(roundedLon)
+                            getLocationFromLatLon(lat: roundedLat, lon: roundedLon) { (location)  in
+                                currLocation = location
+                                print(currLocation)
+                                decodeAPI(userLocation: userLocation) { (sunriseCloudCover,sunsetCloudCover) in
+                                    locationArray.insert(currLocation, at: 0)
+                                    locDict[currLocation] = [sunriseCloudCover, sunsetCloudCover]
+                                    print(locationArray)
+                                    print(locDict)
+                                }
+                            }
+                            
+                            
+                        }
                         if( location != "" && location == autocomplete.suggestions[0] ){
                             goToCompositePage = true
                             decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunriseCloudCover,sunsetCloudCover) in
@@ -91,10 +118,38 @@ struct AddLocation: View {
                             .padding([.bottom],10)
                     }
                 }
+            }.onAppear(){
+                observeCoordinateUpdates()
+                observeLocationAccessDenied()
+                locationService.requestLocationUpdates()
+                makeMLMultiArray()
+
             }
         }
         // this hised the back button
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+    }
+        func observeCoordinateUpdates(){
+        locationService.coordinatesPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print(error)
+                }
+            } receiveValue: { coordinates in
+                self.coordinates = (coordinates.latitude, coordinates.longitude)
+            }
+            .store(in: &tokens)
+    }
+    
+    
+    func observeLocationAccessDenied(){
+        locationService.deniedLocationAccessPublisher
+            .receive(on: DispatchQueue.main)
+            .sink {
+                print("Show some kind of alert to the user")
+            }
+            .store(in: &tokens)
     }
 }
