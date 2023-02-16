@@ -24,24 +24,30 @@ struct AddLocation: View {
                         .resizable()
                         .scaledToFit()
                         .padding()
-                    TextField("Enter Your Location", text: $location)
-                        .textFieldStyle(.roundedBorder)
-                        .font(.system(size: 20, weight: .light, design: .serif))
-                        .background(Color.white)
-                        .opacity(0.2)
-                        .padding()
-                        .onChange(of: location) { newValue in
-                            autocomplete.autocomplete(location)
-                        }
-                    LazyVStack {
+                    HStack{
+                        Image(systemName: "magnifyingglass")
+                            .padding([.leading],10)
+                            .padding([.trailing],5)
+                            .foregroundColor(.white)
+                        TextField("Enter Location", text: $location)
+                            .font(.system(size: 30, weight: .bold, design: .default))
+                            .foregroundColor(.white)
+                            .onChange(of: location) { newValue in
+                                autocomplete.autocomplete(location)
+                            }
+                    }.background(Color(red: 1.00, green: 0.74, blue: 0.61))
+                        .cornerRadius(10)
+                        .padding([.leading], 40)
+                        .padding([.trailing], 40)
+                        .padding([.top], 20)
+                        .padding([.bottom], 20)
+                    LazyVStack(alignment: .leading) {
                         ForEach(autocomplete.suggestions, id: \.self) { suggestion in
                             Text(suggestion)
-                            .font(
-                                .custom("Inter", size: 20)
-                                .weight(.semibold)
-                            )
+                            .font(.system(size: 25, weight: .bold, design: .default))
                             .foregroundColor(.white)
-                            .padding([.bottom],5)
+                            .padding([.bottom],2)
+                            .padding([.leading], 40)
                             .onTapGesture {
                                 location = suggestion
                             }
