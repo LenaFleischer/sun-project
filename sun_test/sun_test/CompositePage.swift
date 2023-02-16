@@ -1,4 +1,6 @@
+
 import SwiftUI
+
 
 let orangey = Color(red: 1.00, green: 0.73, blue: 0.47)
 let pinky = Color(red: 1.00, green: 0.54, blue: 0.54)
@@ -21,6 +23,7 @@ struct CompositePage: View {
                     ForEach(locationArray, id: \.self){ location in
                         ZStack{
                             backgroundC
+                           
                             VStack{
                                 let cloudCoverArr = locDict[location]
                                 let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
@@ -33,7 +36,7 @@ struct CompositePage: View {
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
                                 
-                                HStack{
+                                    HStack{
                                     if sunriseCover == "good"{
                                         Image(systemName: "star.fill")
                                             .foregroundColor(Color.white)
@@ -82,10 +85,12 @@ struct CompositePage: View {
                                     .scaledToFit()
                                     .opacity(0.3)
                                     .padding()
+                                
 
                                 Text("prediction: \(sunsetCover)")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
+                            
                                 HStack{
                                     if sunsetCover == "good"{
                                         Image(systemName: "star.fill")
@@ -126,42 +131,61 @@ struct CompositePage: View {
                                     
                                 }
                                 
-                                /*
-                                Image("splitCircle")
+                                
+                             /*   Image("splitCircle")
                                     .resizable()
                                     .scaledToFit()
                                     .opacity(0.3)
                                     .padding()
-                                    .overlay(ImageOverlay(sunriseCover: $sunriseCover, sunsetCover: $sunsetCover))
-                                 */
+                                    //.overlay(ImageOverlay().scaledToFit())
+                                
+                                */
                                 
                                 Text("sunset")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
-                                
-                                
-                                NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
-                                Button(action: {
-                                    goToAddLocation = true}
-                                       , label: {
-                                    Image("add").imageScale(.small)
+                           
+                                HStack{
+                                    NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
+                                    if (locDict.count > 1){
+                                        Button(action: {
+                                            //removes the location from dict
+                                            if let index = locationArray.firstIndex(of: location) {
+                                                locationArray.remove(at: index)
+                                            }
+                                            locDict[location] = nil
+                                        }
+                                               , label: {
+                                            Image(systemName: "trash")
+                                                .imageScale(.medium)
+                                                .foregroundColor(Color.white)
+                                        })
+                                    }
                                     
-                                })
+                                    
+                                    Button(action: {
+                                        goToAddLocation = true}
+                                           , label: {
+                                        Image("add")
+                                            .imageScale(.medium)
+                                            
+                                    })
+                                }
+                                
                             }
                         }
-                        
                     }
                 }
                 .tabViewStyle(.page)
                 
+                
             }
         }
-        // this hised the back button
+        // this hides the back button
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        
-        
     }
+
     
 }
 
@@ -181,11 +205,8 @@ func getAstheticQuality(cloudCover: Double) -> String{
 
 
 
-/*
-struct ImageOverlay: View {
-    @Binding var sunriseCover: String
-    @Binding var sunsetCover: String
-    
+
+/*struct ImageOverlay: View {
     var body: some View {
         HStack{
             if sunriseCover == "good"{
@@ -227,15 +248,17 @@ struct ImageOverlay: View {
             
         }
         
-        Text("prediction: \(sunriseCover)")
+        Text("prediction: ")
             .foregroundColor(Color.white)
             .font(.system(size: 30, weight: .light, design: .serif))
+
         
         // CENTER OF CIRCLE
 
-        Text("prediction: \(sunsetCover)")
+        Text("hello: ")
             .foregroundColor(Color.white)
             .font(.system(size: 30, weight: .light, design: .serif))
+
         HStack{
             if sunsetCover == "good"{
                 Image(systemName: "star.fill")
@@ -276,7 +299,7 @@ struct ImageOverlay: View {
             
         }
     }
-}
-*/
+}*/
+
 
 
