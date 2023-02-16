@@ -44,7 +44,7 @@ struct AddLocation: View {
                             .padding([.trailing],5)
                             .foregroundColor(.white)
                         TextField("Enter Location", text: $location)
-                            .font(.system(size: 30, weight: .bold, design: .default))
+                            .font(.system(size: 30, design: .default))
                             .foregroundColor(.white)
                             .onChange(of: location) { newValue in
                                 autocomplete.autocomplete(location)
