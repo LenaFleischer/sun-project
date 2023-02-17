@@ -32,16 +32,15 @@ struct CompositePage: View {
                                 let cloudCoverArr = locDict[location]
                                 let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
                                 let sunsetCover = getAstheticQuality(cloudCover: cloudCoverArr?[1] ?? -1)
-                                
                                 Text(location)
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                                     //.frame(alignment: .top)
                                     .frame(maxHeight: .infinity, alignment: .top)
+                                    .padding()
                                 Text("sunrise")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
-                                
+                                    .font(.system(size: 30, weight: .light, design: .default))
                                     HStack{
                                     if sunriseCover == "good"{
                                         Image(systemName: "star.fill")
@@ -79,19 +78,17 @@ struct CompositePage: View {
                                         Image(systemName: "star")
                                             .foregroundColor(Color.white)
                                     }
-                                    
                                 }
-                                
                                 Text("prediction: \(sunriseCover)")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                                 
                                 Spacer()
                                     .frame(height: 65)
 
                                 Text("prediction: \(sunsetCover)")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                             
                                 HStack{
                                     if sunsetCover == "good"{
@@ -130,13 +127,10 @@ struct CompositePage: View {
                                         Image(systemName: "star")
                                             .foregroundColor(Color.white)
                                     }
-                                    
                                 }
-                            
-                                
                                 Text("sunset")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                            
                                 HStack{
                                     NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
@@ -154,10 +148,7 @@ struct CompositePage: View {
                                                 .foregroundColor(Color.white)
                                                 .frame(maxHeight: .infinity)
                                         })
-                                        
                                     }
-                                    
-                                    
                                     Button(action: {
                                         goToAddLocation = true}
                                            , label: {
@@ -165,10 +156,7 @@ struct CompositePage: View {
                                             .resizable()
                                             .frame(width: 20, height: 20)
                                     })
-                                    
                                 }
-                                
-                                
                             }
                         }
                     }
