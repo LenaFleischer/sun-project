@@ -90,7 +90,14 @@ struct AddLocation: View {
                         if( location != "" && location == autocomplete.suggestions[0] ){
                             goToCompositePage = true
                             decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunriseCloudCover,sunsetCloudCover) in
-                                locationArray.append(location)
+                                // so that the current location is always on top
+                                    // but the other locations are in order of when they were added
+                                if locationArray.count == 0{
+                                    locationArray.insert(location, at: 0)
+                                } else {
+                                    locationArray.insert(location, at: 1)
+                                }
+                                
                                 locDict[location] = [sunriseCloudCover, sunsetCloudCover]
                             }
                         } else if (location != ""){
@@ -122,7 +129,6 @@ struct AddLocation: View {
                 observeCoordinateUpdates()
                 observeLocationAccessDenied()
                 locationService.requestLocationUpdates()
-                makeMLMultiArray()
 
             }
         }

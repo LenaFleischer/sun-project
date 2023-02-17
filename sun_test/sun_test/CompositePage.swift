@@ -86,12 +86,6 @@ struct CompositePage: View {
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
                                 
-                                /*Image("splitCircle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .opacity(0.3)
-                                    .padding()
-                                */
                                 Spacer()
                                     .frame(height: 65)
 
@@ -158,8 +152,9 @@ struct CompositePage: View {
                                             Image(systemName: "trash")
                                                 .imageScale(.medium)
                                                 .foregroundColor(Color.white)
-                                                .frame(maxHeight: .infinity, alignment: .bottom)
+                                                .frame(maxHeight: .infinity)
                                         })
+                                        
                                     }
                                     
                                     
@@ -167,30 +162,25 @@ struct CompositePage: View {
                                         goToAddLocation = true}
                                            , label: {
                                         Image("add")
-                                            .imageScale(.medium)
-                                            .frame(maxHeight: .infinity, alignment: .bottom)
-                                            
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
                                     })
+                                    
                                 }
+                                
                                 
                             }
                         }
                     }
                 }
-                .tabViewStyle(.page)
-                
-                
+                .tabViewStyle(.page) // gives the page the ...'s 
             }
         }
         // this hides the back button
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }
-
-    
 }
-
-
 func getAstheticQuality(cloudCover: Double) -> String{
     if (cloudCover < 30){
         return "fine"
@@ -202,105 +192,3 @@ func getAstheticQuality(cloudCover: Double) -> String{
         return "good"
     }
 }
-
-
-
-
-
-/*struct ImageOverlay: View {
-    var body: some View {
-        HStack{
-            if sunriseCover == "good"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-            }
-            else if sunriseCover == "fine"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.leadinghalf.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            else{
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            
-        }
-        
-        Text("prediction: ")
-            .foregroundColor(Color.white)
-            .font(.system(size: 30, weight: .light, design: .serif))
-
-        
-        // CENTER OF CIRCLE
-
-        Text("hello: ")
-            .foregroundColor(Color.white)
-            .font(.system(size: 30, weight: .light, design: .serif))
-
-        HStack{
-            if sunsetCover == "good"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-            }
-            else if sunsetCover == "fine"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.leadinghalf.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            else{
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            
-        }
-    }
-}*/
-
-
-
