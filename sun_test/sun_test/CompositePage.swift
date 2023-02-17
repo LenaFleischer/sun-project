@@ -23,6 +23,8 @@ struct CompositePage: View {
                     ForEach(locationArray, id: \.self){ location in
                         ZStack{
                             backgroundC
+                            .background(pinky.edgesIgnoringSafeArea(.top))
+                            .background(orangey.edgesIgnoringSafeArea(.bottom))
                             Image("splitCircle")
                                 .resizable()
                                 .scaledToFit()
@@ -33,7 +35,9 @@ struct CompositePage: View {
                                 let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
                                 let sunsetCover = getAstheticQuality(cloudCover: cloudCoverArr?[1] ?? -1)
                                 
-                                Text(location)
+                                let fixed_location = getFixedLocation(location: location)
+                                
+                                Text(fixed_location)
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .serif))
                                     //.frame(alignment: .top)
@@ -201,6 +205,23 @@ func getAstheticQuality(cloudCover: Double) -> String{
     else {
         return "good"
     }
+}
+
+func getFixedLocation(location:String) -> String{
+    let commaIndex = location.firstIndex(of:",")
+    
+    var fixed_location = location
+    
+    if(commaIndex != nil){
+        let city = location[..<commaIndex!]
+        
+        let stateIndex = location.index(commaIndex!, offsetBy: 1)
+        let state = location[stateIndex...]
+        
+        fixed_location = String(city) + ", " + String(state)
+    }
+    
+    return fixed_location
 }
 
 
