@@ -23,8 +23,6 @@ struct CompositePage: View {
                     ForEach(locationArray, id: \.self){ location in
                         ZStack{
                             backgroundC
-                            .background(pinky.edgesIgnoringSafeArea(.top))
-                            .background(orangey.edgesIgnoringSafeArea(.bottom))
                             Image("splitCircle")
                                 .resizable()
                                 .scaledToFit()
@@ -182,7 +180,8 @@ struct CompositePage: View {
                     }
                 }
                 .tabViewStyle(.page)
-                
+                .background(pinky.edgesIgnoringSafeArea(.top))
+                .background(orangey.edgesIgnoringSafeArea(.bottom))
                 
             }
         }
