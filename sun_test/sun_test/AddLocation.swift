@@ -68,7 +68,7 @@ struct AddLocation: View {
                         }
                     }
                     
-                   NavigationLink(destination: CompositePage(locationArray: $locationArray), isActive: $goToCompositePage) { EmptyView() }
+                   NavigationLink(destination: CompositePage(locationArray: $locationArray, currLocation: $currLocation), isActive: $goToCompositePage) { EmptyView() }
                     Button(action: {
                          if (coordinates.lat != 0 && coordinates.lon != 0 && currLocation == ""){
                             let roundedLat = Double(round(1000 * coordinates.lat) / 1000)

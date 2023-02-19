@@ -13,6 +13,7 @@ public var locDict: [String: [Double]] = [:]
 
 struct CompositePage: View {
     @Binding var locationArray: [String]
+    @Binding var currLocation: String
     @State var goToAddLocation = false
 
     var body: some View {
@@ -34,14 +35,23 @@ struct CompositePage: View {
                                 let sunsetCover = getAstheticQuality(cloudCover: cloudCoverArr?[1] ?? -1)
                                 
                                 let fixed_location = getFixedLocation(location: location)
-                                
-                                Text(fixed_location)
-
-                                    .foregroundColor(Color.white)
-                                    .font(.system(size: 40, weight: .light, design: .default))
+                                if (currLocation == location){
+                                    Text("Current: \(fixed_location)")
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 30, weight: .light, design: .default))
+                                        //.frame(alignment: .top)
+                                        .frame(maxHeight: .infinity, alignment: .top)
+                                        .padding()
+                                }
+                                else{
+                                    Text(fixed_location)
+                                    
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 40, weight: .light, design: .default))
                                     //.frame(alignment: .top)
-                                    .frame(maxHeight: .infinity, alignment: .top)
-                                    .padding()
+                                        .frame(maxHeight: .infinity, alignment: .top)
+                                        .padding()
+                                }
                                 Text("sunrise")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 40, weight: .light, design: .default))
@@ -183,7 +193,8 @@ struct CompositePage: View {
                            
                                 HStack{
                                     NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
-                                    if (locDict.count > 1){
+                                    
+                                    if (locDict.count > 1 && currLocation != location){
                                         Button(action: {
                                             //removes the location from dict
                                             if let index = locationArray.firstIndex(of: location) {
