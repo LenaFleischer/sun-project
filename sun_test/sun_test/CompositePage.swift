@@ -36,14 +36,15 @@ struct CompositePage: View {
                                 let fixed_location = getFixedLocation(location: location)
                                 
                                 Text(fixed_location)
+
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                                     //.frame(alignment: .top)
                                     .frame(maxHeight: .infinity, alignment: .top)
+                                    .padding()
                                 Text("sunrise")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
-                                
+                                    .font(.system(size: 30, weight: .light, design: .default))
                                     HStack{
                                     if sunriseCover == "good"{
                                         Image(systemName: "star.fill")
@@ -81,25 +82,17 @@ struct CompositePage: View {
                                         Image(systemName: "star")
                                             .foregroundColor(Color.white)
                                     }
-                                    
                                 }
-                                
                                 Text("prediction: \(sunriseCover)")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                                 
-                                /*Image("splitCircle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .opacity(0.3)
-                                    .padding()
-                                */
                                 Spacer()
                                     .frame(height: 65)
 
                                 Text("prediction: \(sunsetCover)")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                             
                                 HStack{
                                     if sunsetCover == "good"{
@@ -138,13 +131,10 @@ struct CompositePage: View {
                                         Image(systemName: "star")
                                             .foregroundColor(Color.white)
                                     }
-                                    
                                 }
-                            
-                                
                                 Text("sunset")
                                     .foregroundColor(Color.white)
-                                    .font(.system(size: 30, weight: .light, design: .serif))
+                                    .font(.system(size: 30, weight: .light, design: .default))
                            
                                 HStack{
                                     NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
@@ -160,26 +150,22 @@ struct CompositePage: View {
                                             Image(systemName: "trash")
                                                 .imageScale(.medium)
                                                 .foregroundColor(Color.white)
-                                                .frame(maxHeight: .infinity, alignment: .bottom)
+                                                .frame(maxHeight: .infinity)
                                         })
                                     }
-                                    
-                                    
                                     Button(action: {
                                         goToAddLocation = true}
                                            , label: {
                                         Image("add")
-                                            .imageScale(.medium)
-                                            .frame(maxHeight: .infinity, alignment: .bottom)
-                                            
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
                                     })
                                 }
-                                
                             }
                         }
                     }
                 }
-                .tabViewStyle(.page)
+                .tabViewStyle(.page) // gives the page the ...'s 
                 .background(pinky.edgesIgnoringSafeArea(.top))
                 .background(orangey.edgesIgnoringSafeArea(.bottom))
                 
@@ -189,11 +175,7 @@ struct CompositePage: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }
-
-    
 }
-
-
 func getAstheticQuality(cloudCover: Double) -> String{
     if (cloudCover < 30){
         return "fine"
@@ -205,6 +187,7 @@ func getAstheticQuality(cloudCover: Double) -> String{
         return "good"
     }
 }
+
 
 func getFixedLocation(location:String) -> String{
     let commaIndex = location.firstIndex(of:",")
@@ -222,105 +205,4 @@ func getFixedLocation(location:String) -> String{
     
     return fixed_location
 }
-
-
-
-
-
-/*struct ImageOverlay: View {
-    var body: some View {
-        HStack{
-            if sunriseCover == "good"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-            }
-            else if sunriseCover == "fine"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.leadinghalf.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            else{
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            
-        }
-        
-        Text("prediction: ")
-            .foregroundColor(Color.white)
-            .font(.system(size: 30, weight: .light, design: .serif))
-
-        
-        // CENTER OF CIRCLE
-
-        Text("hello: ")
-            .foregroundColor(Color.white)
-            .font(.system(size: 30, weight: .light, design: .serif))
-
-        HStack{
-            if sunsetCover == "good"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-            }
-            else if sunsetCover == "fine"{
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star.leadinghalf.fill")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            else{
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-                Image(systemName: "star")
-                    .foregroundColor(Color.white)
-            }
-            
-        }
-    }
-}*/
-
-
 
