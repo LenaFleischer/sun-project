@@ -32,7 +32,11 @@ struct CompositePage: View {
                                 let cloudCoverArr = locDict[location]
                                 let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
                                 let sunsetCover = getAstheticQuality(cloudCover: cloudCoverArr?[1] ?? -1)
-                                Text(location)
+                                
+                                let fixed_location = getFixedLocation(location: location)
+                                
+                                Text(fixed_location)
+
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 30, weight: .light, design: .default))
                                     //.frame(alignment: .top)
@@ -162,6 +166,9 @@ struct CompositePage: View {
                     }
                 }
                 .tabViewStyle(.page) // gives the page the ...'s 
+                .background(pinky.edgesIgnoringSafeArea(.top))
+                .background(orangey.edgesIgnoringSafeArea(.bottom))
+                
             }
         }
         // this hides the back button
@@ -180,3 +187,22 @@ func getAstheticQuality(cloudCover: Double) -> String{
         return "good"
     }
 }
+
+
+func getFixedLocation(location:String) -> String{
+    let commaIndex = location.firstIndex(of:",")
+    
+    var fixed_location = location
+    
+    if(commaIndex != nil){
+        let city = location[..<commaIndex!]
+        
+        let stateIndex = location.index(commaIndex!, offsetBy: 1)
+        let state = location[stateIndex...]
+        
+        fixed_location = String(city) + ", " + String(state)
+    }
+    
+    return fixed_location
+}
+
