@@ -10,10 +10,11 @@ let backgroundC = LinearGradient(
     startPoint: .top, endPoint: .bottom)
 
 public var locDict: [String: [Double]] = [:]
+public var currLocation: String = ""
 
 struct CompositePage: View {
     @Binding var locationArray: [String]
-    @Binding var currLocation: String
+   
     @State var goToAddLocation = false
 
     var body: some View {
@@ -195,6 +196,7 @@ struct CompositePage: View {
                                     NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
                                     
                                     if (locDict.count > 1 && currLocation != location){
+                                        
                                         Button(action: {
                                             //removes the location from dict
                                             if let index = locationArray.firstIndex(of: location) {
