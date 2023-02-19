@@ -196,8 +196,12 @@ struct CompositePage: View {
                                                 .imageScale(.large)
                                                 .foregroundColor(Color.white)
                                                 .frame(maxHeight: .infinity)
+                                                .padding()
                                         })
+                                        
+                                        
                                     }
+                                    Spacer()
                                     Button(action: {
                                         goToAddLocation = true}
                                            , label: {
@@ -206,6 +210,7 @@ struct CompositePage: View {
                                             .frame(width: 40, height: 40)
                                             .imageScale(.large)
                                             .frame(maxHeight: .infinity)
+                                            .padding()
                                     })
                                 }
                             }
