@@ -44,20 +44,17 @@ struct CompositePage: View {
                                 let sunriseTime = locTimeArr![0]
                                 let sunsetTime = locTimeArr![1]
                                 
-                                
-                                
-                                let fixed_location = getFixedLocation(location: location)
-                                
+                            
                                 // this either dispays the location or, if it is the current locaction, then also displays 'current'
                                 if (currLocation == location){
-                                    Text("Current: \(fixed_location)")
+                                    Text("Current: \(location)")
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 30, weight: .light, design: .default))
                                         .frame(maxHeight: .infinity, alignment: .top)
                                         .padding()
                                 }
                                 else{
-                                    Text(fixed_location)
+                                    Text(location)
                                     
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 40, weight: .light, design: .default))
@@ -450,23 +447,6 @@ func getAstheticQuality(prediction: Double) -> String{
     }
 }
 
-// adds a space in the location for best display 
-func getFixedLocation(location:String) -> String{
-    let commaIndex = location.firstIndex(of:",")
-    
-    var fixed_location = location
-    
-    if(commaIndex != nil){
-        let city = location[..<commaIndex!]
-        
-        let stateIndex = location.index(commaIndex!, offsetBy: 1)
-        let state = location[stateIndex...]
-        
-        fixed_location = String(city) + ", " + String(state)
-    }
-    
-    return fixed_location
-}
 
 
 
