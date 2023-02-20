@@ -85,7 +85,6 @@ struct AddLocation: View {
                             getLocationFromLatLon(lat: roundedLat, lon: roundedLon) { (location)  in
                                 currLocation = location
                                 print(currLocation)
-                                //FIX HERE!!! NOT CLOUD COVER ANYMORE, PERCENTAGE
                                 decodeAPI(userLocation: userLocation) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
                                     locationArray.insert(currLocation, at: 0)
                                     percentDict[currLocation] = [sunrisePrediction, sunsetPrediction]
