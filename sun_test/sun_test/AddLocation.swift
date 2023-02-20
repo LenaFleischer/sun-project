@@ -80,9 +80,11 @@ struct AddLocation: View {
                                 //FIX HERE!!! NOT CLOUD COVER ANYMORE, PERCENTAGE
                                 decodeAPI(userLocation: userLocation) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
                                     locationArray.insert(currLocation, at: 0)
-                                    locDict[currLocation] = [sunrisePrediction, sunsetPrediction]
+                                    percentDict[currLocation] = [sunrisePrediction, sunsetPrediction]
+                                    timeDict[currLocation] = [sunriseTime, sunsetTime]
                                     print(locationArray)
-                                    print(locDict)
+                                    print(percentDict)
+                                    print(timeDict)
                                 }
                             }
                             
@@ -100,7 +102,11 @@ struct AddLocation: View {
                                     locationArray.insert(location, at: 1)
                                 }
                                 
-                                locDict[location] = [sunrisePrediction, sunsetPrediction]
+                                percentDict[location] = [sunrisePrediction, sunsetPrediction]
+                                timeDict[location] = [sunriseTime, sunsetTime]
+                                print(locationArray)
+                                print(percentDict)
+                                print(timeDict)
                             }
                         } else if (location != ""){
                             printError = true
