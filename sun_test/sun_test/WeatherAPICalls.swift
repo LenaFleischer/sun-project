@@ -7,10 +7,12 @@
 import Foundation
 import CoreML
 
+//struct to get mean and std vector
 struct VectorInfo:Codable {
     var vector: [Double]
 }
 
+//structs for the lat/long into location
 struct LocationInfo:Codable{
     let name: String
     let local_names: LocalNames
@@ -24,7 +26,7 @@ struct LocalNames:Codable{
     let en: String
 }
 
-
+//making a tomorrow variable to find tomorrow's sunrise/sunset
 extension Date {
    static var tomorrow:  Date { return Date().dayAfter }
    static var today: Date {return Date()}
@@ -33,7 +35,7 @@ extension Date {
    }
 }
 
-
+//structs for visual crossing api call
 struct Weather:Codable{
     let remainingCost: Int?
     let queryCost: Int?
@@ -110,6 +112,7 @@ struct CurrentConditions:Codable{
     let windchill: Double?
 }
 
+//makes api call and returns predictions and times for the next sunrise/sunset
 func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double,String,String)->Void){
     guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations="+userLocation+"&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
 
@@ -210,6 +213,8 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double,
                     sunsetArray[index] = NSNumber(floatLiteral: element)
                 }
                 
+                //using the multiarrays and the model in order to get the predicted quality
+                //of the sunrise and sunset
                 let model = try! sunrise_model0()
                 
                 let sunriseInput = sunrise_model0Input(input_1: sunriseArray)
@@ -220,6 +225,8 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double,
                     guard let sunsetPredictionOutput = try? model.prediction(input: sunsetInput) else {
                             fatalError("Unexpected runtime error. model.prediction")
                     }
+                
+                //these are the predictions, casting them to doubles to return
                 var sunrisePrediction = Double(truncating: sunrisePredictionOutput.var_26[0])
                 var sunsetPrediction = Double(truncating: sunsetPredictionOutput.var_26[0])
                 
@@ -234,6 +241,7 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double,
                 let finalSunrise = getTime(longTime: sunrise)
                 let finalSunset = getTime(longTime: sunset)
                 
+                //returning
                 completionHandler(roundedSunrisePrediction, roundedSunsetPrediction, finalSunrise, finalSunset)
 
             }catch{
@@ -248,6 +256,7 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double,
 //2023-02-02T07:04:38-07:00
 //0123456789012345678901234
 //          111111111122222
+//changes long sunrise/sunset string to just the hour and minute
 func getTime(longTime: String) -> String{
     // shortened time = 2023-02-02T07:04
     let shortenedTime = longTime.prefix(16)
@@ -272,6 +281,7 @@ func getTime(longTime: String) -> String{
         return String(time) + " a.m."
     }
 }
+//loads the mean and std json files
 func loadJson(filename fileName: String) -> VectorInfo? {
     if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
         do {
@@ -286,7 +296,7 @@ func loadJson(filename fileName: String) -> VectorInfo? {
     return nil
 }
 
-    
+// chooses the correct variables to add to the vector for correct comparison to the model
 func makeSunriseVector(values: [Values], correctedSunriseTime: String) -> [Double]{
     var sunrise_vector: [Double] = []
     values.forEach{ i in
@@ -353,6 +363,7 @@ func makeSunriseVector(values: [Values], correctedSunriseTime: String) -> [Doubl
     return sunrise_vector
 }
 
+//same function as above but for the sunset
 func makeSunsetVector(values: [Values], correctedSunsetTime: String) -> [Double]{
     var sunset_vector: [Double] = []
     values.forEach{ i in
@@ -420,6 +431,7 @@ func makeSunsetVector(values: [Values], correctedSunsetTime: String) -> [Double]
     return sunset_vector
 }
 
+//gets the hour that the sunrise occurs at in the visual crossing date/time form
 func getSunriseTime(values: [Values], sunrisePassed:Bool) -> String{
     var sunrise = ""
     if(sunrisePassed){
@@ -456,6 +468,7 @@ func getSunriseTime(values: [Values], sunrisePassed:Bool) -> String{
     return sunrise
 }
 
+//same as above but for sunset
 func getSunsetTime(values: [Values], sunsetPassed:Bool) -> String{
     var sunset = ""
     if(sunsetPassed){
@@ -602,6 +615,7 @@ func findCloudCoverAtSunrise(values: [Values], sunrisePassed:Bool) -> Double {
 }
 */
 
+//changes the lat/long to a string of the location, makes api call to open weather
 func getLocationFromLatLon(lat: Double, lon: Double, completionHandler: @escaping (String)->Void){
     let latstring = String(format: "%f", lat)
     let lonstring = String(format: "%f", lon)
