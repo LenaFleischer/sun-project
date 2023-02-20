@@ -13,7 +13,6 @@
 		4D0F2384299D9BDE00EC22DE /* magnifyingglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D0F2383299D9BDE00EC22DE /* magnifyingglass.png */; };
 		4DBC470529A2EBF0005A145E /* mean.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC470429A2EBF0005A145E /* mean.json */; };
 		4DBC470729A2EC05005A145E /* std.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC470629A2EC05005A145E /* std.json */; };
-		4DBC470B29A3E6EA005A145E /* sunrise_model0.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC470A29A3E6EA005A145E /* sunrise_model0.mlpackage */; };
 		BF1DEA1C2988686100EB6D49 /* sun_testApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */; };
 		BF1DEA202988686300EB6D49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF1DEA1F2988686300EB6D49 /* Assets.xcassets */; };
 		BF1DEA232988686300EB6D49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF1DEA222988686300EB6D49 /* Preview Assets.xcassets */; };
@@ -25,6 +24,7 @@
 		E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D8CE32991C54B000B0760 /* LocationService.swift */; };
 		E1431A3229957C25003D6596 /* WeatherAPICalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1431A3129957C25003D6596 /* WeatherAPICalls.swift */; };
 		E164EF612989BF7E00EC1FF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E164EF602989BF7E00EC1FF1 /* Main.storyboard */; };
+		E1A232D029A3F70800C6169F /* sunrise_model0.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = E1A232CF29A3F70800C6169F /* sunrise_model0.mlpackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,6 @@
 		4D0F2383299D9BDE00EC22DE /* magnifyingglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magnifyingglass.png; sourceTree = "<group>"; };
 		4DBC470429A2EBF0005A145E /* mean.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mean.json; sourceTree = "<group>"; };
 		4DBC470629A2EC05005A145E /* std.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = std.json; sourceTree = "<group>"; };
-		4DBC470A29A3E6EA005A145E /* sunrise_model0.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = sunrise_model0.mlpackage; sourceTree = "<group>"; };
 		BF1DEA182988686100EB6D49 /* sun_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sun_testApp.swift; sourceTree = "<group>"; };
 		BF1DEA1F2988686300EB6D49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		E12D8CE32991C54B000B0760 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E1431A3129957C25003D6596 /* WeatherAPICalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherAPICalls.swift; sourceTree = "<group>"; };
 		E164EF602989BF7E00EC1FF1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E1A232CF29A3F70800C6169F /* sunrise_model0.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = sunrise_model0.mlpackage; path = ../../../../../Downloads/sunrise_model0.mlpackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +121,7 @@
 				4DBC470629A2EC05005A145E /* std.json */,
 				E12D8CE32991C54B000B0760 /* LocationService.swift */,
 				BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */,
-				4DBC470A29A3E6EA005A145E /* sunrise_model0.mlpackage */,
+				E1A232CF29A3F70800C6169F /* sunrise_model0.mlpackage */,
 				4D017021299C19D3007BF7E9 /* cities.txt */,
 				BF1DEA1F2988686300EB6D49 /* Assets.xcassets */,
 				BF1DEA212988686300EB6D49 /* Preview Content */,
@@ -297,7 +297,7 @@
 			files = (
 				E11BD43B299AE91C009A82F1 /* AddLocation.swift in Sources */,
 				4D017024299C19E6007BF7E9 /* CitiesFile.swift in Sources */,
-				4DBC470B29A3E6EA005A145E /* sunrise_model0.mlpackage in Sources */,
+				E1A232D029A3F70800C6169F /* sunrise_model0.mlpackage in Sources */,
 				E11BD437299ABFD7009A82F1 /* CompositePage.swift in Sources */,
 				E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */,
 				E1431A3229957C25003D6596 /* WeatherAPICalls.swift in Sources */,

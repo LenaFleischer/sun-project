@@ -9,7 +9,8 @@ let backgroundC = LinearGradient(
     colors: [pinky, orangey],
     startPoint: .top, endPoint: .bottom)
 
-public var locDict: [String: [Double]] = [:]
+public var percentDict: [String: [Double]] = [:]
+public var timeDict: [String: [String]] = [:]
 public var currLocation: String = ""
 
 struct CompositePage: View {
@@ -32,11 +33,18 @@ struct CompositePage: View {
                                 .opacity(0.3)
                                 .padding()
                             VStack{
-                                let cloudCoverArr = locDict[location]
-                                let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
-                                let sunsetCover = getAstheticQuality(cloudCover: cloudCoverArr?[1] ?? -1)
-                                let sunriseCoverDub = cloudCoverArr?[0] ?? -1
-                                let sunsetCoverDub = cloudCoverArr?[1] ?? -1
+                                let locPercentArr = percentDict[location]
+                                let sunrisePercent = locPercentArr?[0] ?? -1
+                                let sunsetPercent = locPercentArr?[1] ?? -1
+                                let sunrisePrediction = getAstheticQuality(prediction: sunrisePercent)
+                                let sunsetPrediction = getAstheticQuality(prediction: sunsetPercent)
+                                
+                                
+                                let locTimeArr = timeDict[location]
+                                let sunriseTime = locTimeArr![0]
+                                let sunsetTime = locTimeArr![1]
+                                
+                                
                                 
                                 let fixed_location = getFixedLocation(location: location)
                                 
@@ -84,28 +92,28 @@ struct CompositePage: View {
                                     */
                                     
                                     // this is the part for when we get the % from lenas code
-                                    if sunriseCoverDub > 10{
+                                    if sunrisePercent > 10{
                                         Image(systemName: "star.fill")
                                             .foregroundColor(Color.white)
                                             .imageScale(.large)
-                                        if sunriseCoverDub > 30{
+                                        if sunrisePercent > 30{
                                             Image(systemName: "star.fill")
                                                 .foregroundColor(Color.white)
                                                 .imageScale(.large)
-                                            if sunriseCoverDub > 50{
+                                            if sunrisePercent > 50{
                                                 Image(systemName: "star.fill")
                                                     .foregroundColor(Color.white)
                                                     .imageScale(.large)
-                                                if sunriseCoverDub > 70 {
+                                                if sunrisePercent > 70 {
                                                     Image(systemName: "star.fill")
                                                         .foregroundColor(Color.white)
                                                         .imageScale(.large)
-                                                    if sunriseCoverDub > 90 {
+                                                    if sunrisePercent > 90 {
                                                         Image(systemName: "star.fill")
                                                             .foregroundColor(Color.white)
                                                             .imageScale(.large)
                                                     }
-                                                    else if sunriseCoverDub > 80 { //81-90
+                                                    else if sunrisePercent > 80 { //81-90
                                                         Image(systemName: "star.leadinghalf.fill")
                                                             .foregroundColor(Color.white)
                                                             .imageScale(.large)
@@ -116,7 +124,7 @@ struct CompositePage: View {
                                                             .imageScale(.large)
                                                     }
                                                 }
-                                                else if sunriseCoverDub > 60 { //61-70
+                                                else if sunrisePercent > 60 { //61-70
                                                     Image(systemName: "star.leadinghalf.fill")
                                                         .foregroundColor(Color.white)
                                                         .imageScale(.large)
@@ -132,7 +140,7 @@ struct CompositePage: View {
                                                         .imageScale(.large)
                                                 }
                                             }
-                                            else if sunriseCoverDub > 40{ //41-50
+                                            else if sunrisePercent > 40{ //41-50
                                                 Image(systemName: "star.leadinghalf.fill")
                                                     .foregroundColor(Color.white)
                                                     .imageScale(.large)
@@ -153,7 +161,7 @@ struct CompositePage: View {
                                                     .foregroundColor(Color.white)
                                                     .imageScale(.large)
                                             }
-                                        }else if sunriseCoverDub > 20{ //21-30
+                                        }else if sunrisePercent > 20{ //21-30
                                             Image(systemName: "star.leadinghalf.fill")
                                                 .foregroundColor(Color.white)
                                                 .imageScale(.large)
@@ -205,22 +213,22 @@ struct CompositePage: View {
                                 VStack{
                                     Spacer()
                                         .frame(height: 60)
-                                    Text("Time")
+                                    Text("at \(sunriseTime)")
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 40, weight: .light, design: .default))
                                     
-                                    Text("prediction: \(sunriseCover)")
+                                    Text("prediction: \(sunrisePrediction)")
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 40, weight: .light, design: .default))
                                     
                                     Spacer()
                                         .frame(height: 70)
                                     
-                                    Text("prediction: \(sunsetCover)")
+                                    Text("prediction: \(sunsetPrediction)")
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 40, weight: .light, design: .default))
                                     
-                                    Text("Time")
+                                    Text("at \(sunsetTime)")
                                      .foregroundColor(Color.white)
                                      .font(.system(size: 40, weight: .light, design: .default))
                                      
@@ -231,41 +239,103 @@ struct CompositePage: View {
                                 //this HStack displays the star rating
                                 // set up to take in the good, bad, fine conditions
                                 HStack{
-                                    if sunriseCover == "good"{
+                                    if sunsetPercent > 10{
                                         Image(systemName: "star.fill")
                                             .foregroundColor(Color.white)
                                             .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                    }
-                                    else if sunriseCover == "fine"{
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.leadinghalf.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                    }
-                                    else{
+                                        if sunsetPercent > 30{
+                                            Image(systemName: "star.fill")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            if sunsetPercent > 50{
+                                                Image(systemName: "star.fill")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                if sunsetPercent > 70 {
+                                                    Image(systemName: "star.fill")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                    if sunsetPercent > 90 {
+                                                        Image(systemName: "star.fill")
+                                                            .foregroundColor(Color.white)
+                                                            .imageScale(.large)
+                                                    }
+                                                    else if sunsetPercent > 80 { //81-90
+                                                        Image(systemName: "star.leadinghalf.fill")
+                                                            .foregroundColor(Color.white)
+                                                            .imageScale(.large)
+                                                        
+                                                    }else { // 71-80
+                                                        Image(systemName: "star")
+                                                            .foregroundColor(Color.white)
+                                                            .imageScale(.large)
+                                                    }
+                                                }
+                                                else if sunsetPercent > 60 { //61-70
+                                                    Image(systemName: "star.leadinghalf.fill")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                    Image(systemName: "star")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                }else { // 51-60
+                                                    Image(systemName: "star")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                    Image(systemName: "star")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                }
+                                            }
+                                            else if sunsetPercent > 40{ //41-50
+                                                Image(systemName: "star.leadinghalf.fill")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                            } else{ //31-40
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                            }
+                                        }else if sunsetPercent > 20{ //21-30
+                                            Image(systemName: "star.leadinghalf.fill")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                       } else{ //11-20
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                       }
+                                    } else{ // 0-10
                                         Image(systemName: "star")
                                             .foregroundColor(Color.white)
                                             .imageScale(.large)
@@ -296,14 +366,15 @@ struct CompositePage: View {
                                 HStack{
                                     NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
                                     
-                                    if (locDict.count > 1 && currLocation != location){
+                                    if (percentDict.count > 1 && currLocation != location){
                                         
                                         Button(action: {
                                             //removes the location from dict
                                             if let index = locationArray.firstIndex(of: location) {
                                                 locationArray.remove(at: index)
                                             }
-                                            locDict[location] = nil
+                                            percentDict[location] = nil
+                                            timeDict[location] = nil
                                         }
                                                , label: {
                                             Image(systemName: "trash")
@@ -361,15 +432,21 @@ struct CompositePage: View {
 }
 
 // converts the cloud cover percentage to a good bad fine condition
-func getAstheticQuality(cloudCover: Double) -> String{
-    if (cloudCover < 30){
-        return "fine"
+func getAstheticQuality(prediction: Double) -> String{
+    if (prediction > 90){
+        return "amazing"
     }
-    else if (cloudCover > 60){
-        return "bad"
+    else if (prediction > 70){
+        return "great"
+    }
+    else if (prediction > 50){
+        return "good"
+    }
+    else if (prediction > 30){
+        return "ok"
     }
     else {
-        return "good"
+        return "bad"
     }
 }
 
