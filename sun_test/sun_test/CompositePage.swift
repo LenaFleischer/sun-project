@@ -228,7 +228,7 @@ struct CompositePage: View {
                         }
                     }
                 }
-                .tabViewStyle(.page) // gives the page the ...'s 
+                .tabViewStyle(.page) // gives the page the ...'s
                 .background(pinky.edgesIgnoringSafeArea(.top))
                 .background(orangey.edgesIgnoringSafeArea(.bottom))
                 

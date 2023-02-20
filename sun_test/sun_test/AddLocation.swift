@@ -77,9 +77,10 @@ struct AddLocation: View {
                             getLocationFromLatLon(lat: roundedLat, lon: roundedLon) { (location)  in
                                 currLocation = location
                                 print(currLocation)
-                                decodeAPI(userLocation: userLocation) { (sunriseCloudCover,sunsetCloudCover) in
+                                //FIX HERE!!! NOT CLOUD COVER ANYMORE, PERCENTAGE
+                                decodeAPI(userLocation: userLocation) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
                                     locationArray.insert(currLocation, at: 0)
-                                    locDict[currLocation] = [sunriseCloudCover, sunsetCloudCover]
+                                    locDict[currLocation] = [sunrisePrediction, sunsetPrediction]
                                     print(locationArray)
                                     print(locDict)
                                 }
@@ -89,7 +90,8 @@ struct AddLocation: View {
                         }
                         if( location != "" && location == autocomplete.suggestions[0] ){
                             goToCompositePage = true
-                            decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunriseCloudCover,sunsetCloudCover) in
+                            //FIX HERE!!! NOT CLOUD COVER ANYMORE, PERCENTAGE
+                            decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
                                 // so that the current location is always on top
                                     // but the other locations are in order of when they were added
                                 if locationArray.count == 0{
@@ -98,7 +100,7 @@ struct AddLocation: View {
                                     locationArray.insert(location, at: 1)
                                 }
                                 
-                                locDict[location] = [sunriseCloudCover, sunsetCloudCover]
+                                locDict[location] = [sunrisePrediction, sunsetPrediction]
                             }
                         } else if (location != ""){
                             printError = true

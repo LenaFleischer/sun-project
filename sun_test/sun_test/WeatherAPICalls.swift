@@ -5,6 +5,11 @@
 //
 
 import Foundation
+import CoreML
+
+struct VectorInfo:Codable {
+    var vector: [Double]
+}
 
 struct LocationInfo:Codable{
     let name: String
@@ -53,62 +58,59 @@ struct Weather:Codable{
  }
 
 struct Values: Codable{
-    let wdir: Double?
-    let uvindex: Double?
+    let wdir: Double
+    let uvindex: Double
     let sunrise: String
     let datetimeStr: String
     let precriptype: String?
-    let cin: Double?
+    let cin: Double
     let cloudcover: Double
-    let pop: Double?
+    let pop: Double
     let datetime: Int
-    let precip: Double?
-    let solarradiation: Double?
-    let dew: Double?
-    let humidity: Double?
-    let temp: Double?
-    let visibility: Double?
-    let wspd: Double?
-    let severerisk: Double?
-    let solarenergy: Double?
+    let precip: Double
+    let solarradiation: Double
+    let dew: Double
+    let humidity: Double
+    let temp: Double
+    let visibility: Double
+    let wspd: Double
+    let severerisk: Double
+    let solarenergy: Double
     let heatindex: Double?
-    let moonphase: Double?
-    let snowdepth: Double?
-    let sealevelpressure: Double?
-    let snow: Double?
+    let moonphase: Double
+    let snowdepth: Double
+    let sealevelpressure: Double
+    let snow: Double
     let sunset: String
     let wgust: Double?
-    let conditions: String?
+    let conditions: String
     let windchill: Double?
-    let cape: Double?
+    let cape: Double
 }
 
 struct CurrentConditions:Codable{
-    let wdir: Double?
-    let temp: Double?
+    let wdir: Double
+    let temp: Double
     let sunrise: String
-    let visibility: Double?
-    let wspd: Double?
-    let icon: String?
-    let stations: String?
+    let visibility: Double
+    let wspd: Double
+    let icon: String
+    let stations: String
     let heatindex: Int?
-    let cloudcover: Double
+    let cloudcover: Double?
     let datetime: String
-    let precip: Double?
-    let moonphase: Double?
+    let precip: Double
+    let moonphase: Double
     let snowdepth: Double?
-    let sealevelpressure: Double?
-    let dew: Double?
+    let sealevelpressure: Double
+    let dew: Double
     let sunset: String
-    let humidity: Double?
+    let humidity: Double
     let wgust: Double?
     let windchill: Double?
 }
 
-func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)->Void){
-    var sunsetCloudCover = -1.0
-    var sunriseCloudCover = -1.0
-    
+func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double,String,String)->Void){
     guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations="+userLocation+"&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
 
     let task = URLSession.shared.dataTask(with: url){
@@ -118,6 +120,7 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)
 
         if let data = data{
             do{
+                //finding if sunrise/sunset have passed to get correct timing
                 var sunrisePassed = false
                 var sunsetPassed = false
                 
@@ -154,9 +157,85 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)
                     sunsetPassed = true
                 }
                 
-                sunsetCloudCover = findCloudCoverAtSunset(values:weatherinfo.location.values, sunsetPassed: sunsetPassed)
-                sunriseCloudCover = findCloudCoverAtSunrise(values:weatherinfo.location.values, sunrisePassed: sunrisePassed)
-                completionHandler(sunriseCloudCover,sunsetCloudCover)
+                //finding correct sunrise/sunset time
+                let sunrise = getSunriseTime(values: weatherinfo.location.values, sunrisePassed: sunrisePassed)
+                let sunset = getSunsetTime(values: weatherinfo.location.values, sunsetPassed: sunsetPassed)
+                
+                //getting corrected times to find the hour the sunset/sunrise occur
+                var sunriseChars = Array(sunrise)
+                
+                sunriseChars[14] = "0"
+                sunriseChars[15] = "0"
+                sunriseChars[17] = "0"
+                sunriseChars[18] = "0"
+
+                let correctedSunriseTime = String(sunriseChars)
+                
+                var sunsetChars = Array(sunset)
+                
+                sunsetChars[14] = "0"
+                sunsetChars[15] = "0"
+                sunsetChars[17] = "0"
+                sunsetChars[18] = "0"
+
+                let correctedSunsetTime = String(sunsetChars)
+                
+                //creating vectors
+                var sunrise_vector = makeSunriseVector(values: weatherinfo.location.values, correctedSunriseTime: correctedSunriseTime)
+                var sunset_vector = makeSunsetVector(values: weatherinfo.location.values, correctedSunsetTime: correctedSunsetTime)
+                
+                //normalizing vectors
+                let mean_vector_info = loadJson(filename: "mean")!
+                let std_vector_info = loadJson(filename: "std")!
+                
+                var index = 0
+                while(index < 19){
+                    sunrise_vector[index] = (sunrise_vector[index] - mean_vector_info.vector[index])/(std_vector_info.vector[index])
+                    sunset_vector[index] = (sunset_vector[index] - mean_vector_info.vector[index])/(std_vector_info.vector[index])
+                    index+=1
+                }
+                
+                //making the multiarrays
+                guard let sunriseArray = try? MLMultiArray(shape:[19], dataType:MLMultiArrayDataType.float32) else {
+                        fatalError("Unexpected runtime error. MLMultiArray")
+                }
+                for (index, element) in sunrise_vector.enumerated() {
+                    sunriseArray[index] = NSNumber(floatLiteral: element)
+                }
+                
+                guard let sunsetArray = try? MLMultiArray(shape:[19], dataType:MLMultiArrayDataType.float32) else {
+                        fatalError("Unexpected runtime error. MLMultiArray")
+                }
+                for (index, element) in sunset_vector.enumerated() {
+                    sunsetArray[index] = NSNumber(floatLiteral: element)
+                }
+                
+                let model = try! sunrise_model0()
+                
+                let sunriseInput = sunrise_model0Input(input_1: sunriseArray)
+                    guard let sunrisePredictionOutput = try? model.prediction(input: sunriseInput) else {
+                            fatalError("Unexpected runtime error. model.prediction")
+                    }
+                let sunsetInput = sunrise_model0Input(input_1: sunsetArray)
+                    guard let sunsetPredictionOutput = try? model.prediction(input: sunsetInput) else {
+                            fatalError("Unexpected runtime error. model.prediction")
+                    }
+                var sunrisePrediction = Double(truncating: sunrisePredictionOutput.var_26[0])
+                var sunsetPrediction = Double(truncating: sunsetPredictionOutput.var_26[0])
+                
+                //rounding and altering to be a percentage double
+                sunrisePrediction = sunrisePrediction*100
+                sunsetPrediction = sunsetPrediction*100
+                
+                let roundedSunrisePrediction = Double(round(1000 * sunrisePrediction) / 1000)
+                let roundedSunsetPrediction = Double(round(1000 * sunsetPrediction) / 1000)
+                
+                //getting shorter string of the sunrise/sunset to return
+                let finalSunrise = getTime(longTime: sunrise)
+                let finalSunset = getTime(longTime: sunset)
+                
+                completionHandler(roundedSunrisePrediction, roundedSunsetPrediction, finalSunrise, finalSunset)
+
             }catch{
                 print(error)
             }
@@ -166,6 +245,244 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double)
 
 }
 
+//2023-02-02T07:04:38-07:00
+//0123456789012345678901234
+//          111111111122222
+func getTime(longTime: String) -> String{
+    // shortened time = 2023-02-02T07:04
+    let shortenedTime = longTime.prefix(16)
+    // time = 07:04
+    let time = shortenedTime.suffix(5)
+    if time.starts(with: "0"){
+        // 7:04
+        let newTime = time.suffix(4)
+        return String(newTime)
+    } else{
+        return String(time)
+    }
+}
+
+func loadJson(filename fileName: String) -> VectorInfo? {
+    if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode(VectorInfo.self, from: data)
+            return jsonData
+        } catch {
+            print("error:\(error)")
+        }
+    }
+    return nil
+}
+
+    
+func makeSunriseVector(values: [Values], correctedSunriseTime: String) -> [Double]{
+    var sunrise_vector: [Double] = []
+    values.forEach{ i in
+        if(i.datetimeStr == correctedSunriseTime){
+            sunrise_vector.append(i.temp)
+            sunrise_vector.append(i.dew)
+            sunrise_vector.append(i.humidity)
+            if(i.heatindex == nil){
+                sunrise_vector.append(0.0)
+            } else {
+                sunrise_vector.append(i.heatindex!)
+            }
+            sunrise_vector.append(i.wspd)
+            if(i.wgust == nil){
+                sunrise_vector.append(0.0)
+            } else {
+                sunrise_vector.append(i.wgust!)
+            }
+            sunrise_vector.append(i.wdir)
+            if(i.windchill == nil){
+                sunrise_vector.append(0.0)
+            } else {
+                sunrise_vector.append(i.windchill!)
+            }
+            sunrise_vector.append(i.precip)
+            sunrise_vector.append(i.snowdepth)
+            sunrise_vector.append(i.visibility)
+            sunrise_vector.append(i.cloudcover)
+            sunrise_vector.append(i.sealevelpressure)
+            if(i.conditions == "Overcast"){
+                sunrise_vector.append(1.0)
+            } else {
+                sunrise_vector.append(0.0)
+            }
+            if(i.conditions == "Partially cloudy"){
+                sunrise_vector.append(1.0)
+            } else {
+                sunrise_vector.append(0.0)
+            }
+            if(i.conditions == "Clear"){
+                sunrise_vector.append(1.0)
+            } else {
+                sunrise_vector.append(0.0)
+            }
+            if(i.conditions == "Rain"){
+                sunrise_vector.append(1.0)
+            } else {
+                sunrise_vector.append(0.0)
+            }
+            
+            let sunriseChars = Array(correctedSunriseTime)
+            
+            let month1 = sunriseChars[5]
+            let month2 = sunriseChars[6]
+            let month = String(month1)+String(month2)
+            sunrise_vector.append(Double(month)!)
+            
+            let hour1 = sunriseChars[11]
+            let hour2 = sunriseChars[12]
+            let hour = String(hour1)+String(hour2)
+            sunrise_vector.append(Double(hour)!)
+        }
+    }
+    return sunrise_vector
+}
+
+func makeSunsetVector(values: [Values], correctedSunsetTime: String) -> [Double]{
+    var sunset_vector: [Double] = []
+    values.forEach{ i in
+        if(i.datetimeStr == correctedSunsetTime){
+            sunset_vector.append(i.temp)
+            sunset_vector.append(i.dew)
+            sunset_vector.append(i.humidity)
+            if(i.heatindex == nil){
+                sunset_vector.append(0.0)
+            } else {
+                sunset_vector.append(i.heatindex!)
+            }
+            sunset_vector.append(i.wspd)
+            if(i.wgust == nil){
+                sunset_vector.append(0.0)
+            } else {
+                sunset_vector.append(i.wgust!)
+            }
+            sunset_vector.append(i.wdir)
+            if(i.windchill == nil){
+                sunset_vector.append(0.0)
+            } else {
+                sunset_vector.append(i.windchill!)
+            }
+            sunset_vector.append(i.precip)
+            sunset_vector.append(i.snowdepth)
+            sunset_vector.append(i.visibility)
+            sunset_vector.append(i.cloudcover)
+            sunset_vector.append(i.sealevelpressure)
+            if(i.conditions == "Overcast"){
+                sunset_vector.append(1.0)
+            } else {
+                sunset_vector.append(0.0)
+            }
+            if(i.conditions == "Partially cloudy"){
+                sunset_vector.append(1.0)
+            } else {
+                sunset_vector.append(0.0)
+            }
+            if(i.conditions == "Clear"){
+                sunset_vector.append(1.0)
+            } else {
+                sunset_vector.append(0.0)
+            }
+            if(i.conditions == "Rain"){
+                sunset_vector.append(1.0)
+            } else {
+                sunset_vector.append(0.0)
+            }
+            
+            let sunsetChars = Array(correctedSunsetTime)
+            
+            let month1 = sunsetChars[5]
+            let month2 = sunsetChars[6]
+            let month = String(month1)+String(month2)
+            sunset_vector.append(Double(month)!)
+            
+            let hour1 = sunsetChars[11]
+            let hour2 = sunsetChars[12]
+            let hour = String(hour1)+String(hour2)
+            sunset_vector.append(Double(hour)!)
+            
+        }
+    }
+    return sunset_vector
+}
+
+func getSunriseTime(values: [Values], sunrisePassed:Bool) -> String{
+    var sunrise = ""
+    if(sunrisePassed){
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+
+        // Convert Date to String
+        let tomorrow = dateFormatter.string(from: Date.tomorrow)
+        
+        let dateString = values.first!.datetimeStr
+        
+        let endOfDateIndex = dateString.firstIndex(of: "T")!
+        
+        let endOfDate = dateString[endOfDateIndex...]
+        
+        let thisString = tomorrow + endOfDate
+        
+        var dateChars = Array(thisString)
+        dateChars[11] = "0"
+        dateChars[12] = "0"
+        
+        let correctedString = String(dateChars)
+        
+        values.forEach{ i in
+            if(i.datetimeStr == correctedString){
+                sunrise = i.sunrise
+            }
+        }
+    } else {
+        sunrise = values.first!.sunrise
+    }
+    return sunrise
+}
+
+func getSunsetTime(values: [Values], sunsetPassed:Bool) -> String{
+    var sunset = ""
+    if(sunsetPassed){
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+
+        // Convert Date to String
+        let tomorrow = dateFormatter.string(from: Date.tomorrow)
+        
+        let dateString = values.first!.datetimeStr
+        
+        let endOfDateIndex = dateString.firstIndex(of: "T")!
+        
+        let endOfDate = dateString[endOfDateIndex...]
+        
+        let thisString = tomorrow + endOfDate
+        
+        var dateChars = Array(thisString)
+        dateChars[11] = "0"
+        dateChars[12] = "0"
+        
+        let correctedString = String(dateChars)
+        
+        values.forEach{ i in
+            if(i.datetimeStr == correctedString){
+                sunset = i.sunset
+            }
+        }
+    } else {
+        sunset = values.first!.sunset
+    }
+    return sunset
+}
+
+/**
 func findCloudCoverAtSunset(values: [Values], sunsetPassed: Bool) -> Double {
     var sunsetTime:String = ""
     if(sunsetPassed == true){
@@ -273,7 +590,7 @@ func findCloudCoverAtSunrise(values: [Values], sunrisePassed:Bool) -> Double {
     }
     return cloudcover
 }
-
+*/
 
 func getLocationFromLatLon(lat: Double, lon: Double, completionHandler: @escaping (String)->Void){
     let latstring = String(format: "%f", lat)
