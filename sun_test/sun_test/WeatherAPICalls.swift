@@ -256,12 +256,22 @@ func getTime(longTime: String) -> String{
     if time.starts(with: "0"){
         // 7:04
         let newTime = time.suffix(4)
-        return String(newTime)
+        return String(newTime) + " a.m."
+        // if the hour is bigger than 9
     } else{
-        return String(time)
+        let hour = Int(String(time.prefix(2))) ?? 0
+        // if the hour is bigger than 12 change out of Military time
+        if hour > 12{
+            let newHour = hour - 12
+            // the minites and the :
+            let min = time.suffix(3)
+            let fixedTime = String(newHour) + String(min)
+            return fixedTime + " p.m."
+        }
+        // if string is bigger than 9 but less than 12
+        return String(time) + " a.m."
     }
 }
-
 func loadJson(filename fileName: String) -> VectorInfo? {
     if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
         do {

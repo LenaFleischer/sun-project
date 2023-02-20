@@ -471,3 +471,4 @@ func getFixedLocation(location:String) -> String{
 
 
 
+
