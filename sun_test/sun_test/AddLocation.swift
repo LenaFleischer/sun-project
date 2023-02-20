@@ -21,6 +21,7 @@ struct AddLocation: View {
 
     @State var printError = false
     
+    // object so autocomplete works
     @ObservedObject private var autocomplete = AutocompleteObject()
         //variables for location service
     @StateObject var locationService = LocationService.shared
@@ -30,6 +31,7 @@ struct AddLocation: View {
     var body: some View {
         NavigationView{
             ZStack{
+                //background plus covering white spaces at top and bottom
                 backgroundC
                     .background(pinky.edgesIgnoringSafeArea(.top))
                     .background(orangey.edgesIgnoringSafeArea(.bottom))
@@ -39,6 +41,7 @@ struct AddLocation: View {
                         .scaledToFit()
                         .padding()
                     HStack{
+                        //hstack for search bar w/ magnifying glass and text field
                         Image(systemName: "magnifyingglass")
                             .padding([.leading],10)
                             .padding([.trailing],5)
@@ -46,15 +49,18 @@ struct AddLocation: View {
                         TextField("Enter Location", text: $location)
                             .font(.system(size: 30, design: .default))
                             .foregroundColor(.white)
+                        //autocompletes location
                             .onChange(of: location) { newValue in
                                 autocomplete.autocomplete(location)
                             }
+                        //making background of textfield look opaque
                     }.background(Color(red: 1.00, green: 0.74, blue: 0.61))
                         .cornerRadius(10)
                         .padding([.leading], 40)
                         .padding([.trailing], 40)
                         .padding([.top], 20)
                         .padding([.bottom], 20)
+                    //autocompleted suggestions that are displayed in a lazy vstack
                     LazyVStack(alignment: .leading) {
                         ForEach(autocomplete.suggestions, id: \.self) { suggestion in
                             Text(suggestion)
@@ -62,6 +68,7 @@ struct AddLocation: View {
                             .foregroundColor(.white)
                             .padding([.bottom],2)
                             .padding([.leading], 40)
+                            //makes the tapped location the text in the text field
                             .onTapGesture {
                                 location = suggestion
                             }
@@ -69,6 +76,7 @@ struct AddLocation: View {
                     }
                     
                    NavigationLink(destination: CompositePage(locationArray: $locationArray), isActive: $goToCompositePage) { EmptyView() }
+                    //add location button that when pressed creates location
                     Button(action: {
                          if (coordinates.lat != 0 && coordinates.lon != 0 && currLocation == ""){
                             let roundedLat = Double(round(1000 * coordinates.lat) / 1000)
@@ -92,7 +100,6 @@ struct AddLocation: View {
                         }
                         if( location != "" && location == autocomplete.suggestions[0] ){
                             goToCompositePage = true
-                            //FIX HERE!!! NOT CLOUD COVER ANYMORE, PERCENTAGE
                             decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
                                 // so that the current location is always on top
                                     // but the other locations are in order of when they were added
@@ -112,6 +119,7 @@ struct AddLocation: View {
                             printError = true
                         }
                     }
+                           //button that adds the location
                            , label: {
                         Text("Add Location")
                             .padding([.leading], 5)
@@ -126,6 +134,7 @@ struct AddLocation: View {
                         .tint(Color(red: 1.00, green: 1.00, blue: 1.00, opacity: 0.3))
                         .padding([.bottom],20)
                         .padding([.top],20)
+                    //error message is button is pressed when there is an invalid location
                     if(printError){
                         Text("Please select location from list")
                             .font(.system(size: 16, design: .default))
