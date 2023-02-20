@@ -10,10 +10,11 @@ let backgroundC = LinearGradient(
     startPoint: .top, endPoint: .bottom)
 
 public var locDict: [String: [Double]] = [:]
+public var currLocation: String = ""
 
 struct CompositePage: View {
     @Binding var locationArray: [String]
-    @Binding var currLocation: String
+   
     @State var goToAddLocation = false
 
     var body: some View {
@@ -23,6 +24,7 @@ struct CompositePage: View {
                 TabView{
                     ForEach(locationArray, id: \.self){ location in
                         ZStack{
+                            // sets the background color and circle
                             backgroundC
                             Image("splitCircle")
                                 .resizable()
@@ -33,13 +35,16 @@ struct CompositePage: View {
                                 let cloudCoverArr = locDict[location]
                                 let sunriseCover = getAstheticQuality(cloudCover: cloudCoverArr?[0] ?? -1)
                                 let sunsetCover = getAstheticQuality(cloudCover: cloudCoverArr?[1] ?? -1)
+                                let sunriseCoverDub = cloudCoverArr?[0] ?? -1
+                                let sunsetCoverDub = cloudCoverArr?[1] ?? -1
                                 
                                 let fixed_location = getFixedLocation(location: location)
+                                
+                                // this either dispays the location or, if it is the current locaction, then also displays 'current'
                                 if (currLocation == location){
                                     Text("Current: \(fixed_location)")
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 30, weight: .light, design: .default))
-                                        //.frame(alignment: .top)
                                         .frame(maxHeight: .infinity, alignment: .top)
                                         .padding()
                                 }
@@ -48,14 +53,184 @@ struct CompositePage: View {
                                     
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 40, weight: .light, design: .default))
-                                    //.frame(alignment: .top)
                                         .frame(maxHeight: .infinity, alignment: .top)
                                         .padding()
                                 }
+                                
+                                
+                                
                                 Text("sunrise")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 40, weight: .light, design: .default))
-                                    HStack{
+                                
+                                //this HStack displays the star rating
+                                // set up to take in Lenas percentage rating
+                                HStack{
+                                    /*
+                                    91-100  - 5    - XXXXX
+                                    81-90   - 4.5  - XXXXx
+                                    71-80   - 4    - XXXX0
+                                    61-70   - 3.5  - XXXx0
+                                    51-60   - 3    - XXX00
+                                    41-50   - 2.5  - XXx00
+                                    31-40   - 2    - XX000
+                                    21-30   - 1.5  - Xx000
+                                    11-20   - 1    - X0000
+                                    0-10    - 0    - 00000
+                                     
+                                     30-59 good
+                                     0-30 fine
+                                     60-100 bad 
+                                    */
+                                    
+                                    // this is the part for when we get the % from lenas code
+                                    if sunriseCoverDub > 10{
+                                        Image(systemName: "star.fill")
+                                            .foregroundColor(Color.white)
+                                            .imageScale(.large)
+                                        if sunriseCoverDub > 30{
+                                            Image(systemName: "star.fill")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            if sunriseCoverDub > 50{
+                                                Image(systemName: "star.fill")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                if sunriseCoverDub > 70 {
+                                                    Image(systemName: "star.fill")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                    if sunriseCoverDub > 90 {
+                                                        Image(systemName: "star.fill")
+                                                            .foregroundColor(Color.white)
+                                                            .imageScale(.large)
+                                                    }
+                                                    else if sunriseCoverDub > 80 { //81-90
+                                                        Image(systemName: "star.leadinghalf.fill")
+                                                            .foregroundColor(Color.white)
+                                                            .imageScale(.large)
+                                                        
+                                                    }else { // 71-80
+                                                        Image(systemName: "star")
+                                                            .foregroundColor(Color.white)
+                                                            .imageScale(.large)
+                                                    }
+                                                }
+                                                else if sunriseCoverDub > 60 { //61-70
+                                                    Image(systemName: "star.leadinghalf.fill")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                    Image(systemName: "star")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                }else { // 51-60
+                                                    Image(systemName: "star")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                    Image(systemName: "star")
+                                                        .foregroundColor(Color.white)
+                                                        .imageScale(.large)
+                                                }
+                                            }
+                                            else if sunriseCoverDub > 40{ //41-50
+                                                Image(systemName: "star.leadinghalf.fill")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                            } else{ //31-40
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                                Image(systemName: "star")
+                                                    .foregroundColor(Color.white)
+                                                    .imageScale(.large)
+                                            }
+                                        }else if sunriseCoverDub > 20{ //21-30
+                                            Image(systemName: "star.leadinghalf.fill")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                       } else{ //11-20
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                            Image(systemName: "star")
+                                                .foregroundColor(Color.white)
+                                                .imageScale(.large)
+                                       }
+                                    } else{ // 0-10
+                                        Image(systemName: "star")
+                                            .foregroundColor(Color.white)
+                                            .imageScale(.large)
+                                        Image(systemName: "star")
+                                            .foregroundColor(Color.white)
+                                            .imageScale(.large)
+                                        Image(systemName: "star")
+                                            .foregroundColor(Color.white)
+                                            .imageScale(.large)
+                                        Image(systemName: "star")
+                                            .foregroundColor(Color.white)
+                                            .imageScale(.large)
+                                        Image(systemName: "star")
+                                            .foregroundColor(Color.white)
+                                            .imageScale(.large)
+                                    }
+                                        
+                                }
+                                
+                                // got errors if this code is not in a vstack, idk why lol
+                                // this VStack displays all the info about the sunset/rise
+                                VStack{
+                                    Spacer()
+                                        .frame(height: 60)
+                                    Text("Time")
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 40, weight: .light, design: .default))
+                                    
+                                    Text("prediction: \(sunriseCover)")
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 40, weight: .light, design: .default))
+                                    
+                                    Spacer()
+                                        .frame(height: 70)
+                                    
+                                    Text("prediction: \(sunsetCover)")
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 40, weight: .light, design: .default))
+                                    
+                                    Text("Time")
+                                     .foregroundColor(Color.white)
+                                     .font(.system(size: 40, weight: .light, design: .default))
+                                     
+                                    Spacer()
+                                        .frame(height: 55)
+                                }
+                                
+                                //this HStack displays the star rating
+                                // set up to take in the good, bad, fine conditions
+                                HStack{
                                     if sunriseCover == "good"{
                                         Image(systemName: "star.fill")
                                             .foregroundColor(Color.white)
@@ -107,94 +282,22 @@ struct CompositePage: View {
                                             .foregroundColor(Color.white)
                                             .imageScale(.large)
                                     }
-                                        
+                                    
                                 }
-                                VStack{ // got errors if this is not in a vstack
-                                    Spacer()
-                                        .frame(height: 50)
-                                    Text("Time")
-                                        .foregroundColor(Color.white)
-                                        .font(.system(size: 40, weight: .light, design: .default))
-                                    
-                                    Text("prediction: \(sunriseCover)")
-                                        .foregroundColor(Color.white)
-                                        .font(.system(size: 40, weight: .light, design: .default))
-                                    
-                                    Spacer()
-                                        .frame(height: 70)
-                                    
-                                    Text("prediction: \(sunsetCover)")
-                                        .foregroundColor(Color.white)
-                                        .font(.system(size: 40, weight: .light, design: .default))
-                                    
-                                    Text("Time")
-                                     .foregroundColor(Color.white)
-                                     .font(.system(size: 40, weight: .light, design: .default))
-                                     
-                                    Spacer()
-                                        .frame(height: 55)
-                                }
-                                HStack{
-                                    if sunsetCover == "good"{
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                    }
-                                    else if sunsetCover == "fine"{
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star.leadinghalf.fill")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                    }
-                                    else{
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                        Image(systemName: "star")
-                                            .foregroundColor(Color.white)
-                                            .imageScale(.large)
-                                    }
-                                }
+                                
                                 Text("sunset")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 40, weight: .light, design: .default))
-                           
+                                
+                                Spacer()
+                                    .frame(height: 10)
+
+                                // this HStack contains the two buttons and the label about viewing 20 mins early
                                 HStack{
                                     NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
                                     
                                     if (locDict.count > 1 && currLocation != location){
+                                        
                                         Button(action: {
                                             //removes the location from dict
                                             if let index = locationArray.firstIndex(of: location) {
@@ -211,8 +314,23 @@ struct CompositePage: View {
                                         })
                                         
                                         
+                                    } else{
+                                        Spacer()
+                                            .frame(width: 40)
                                     }
-                                    Spacer()
+                                    
+                                    // label in VStack for best layout
+                                    VStack{
+                                        Text("for best views,")
+                                             .foregroundColor(Color.white)
+                                             .font(.system(size: 20, weight: .light, design: .default))
+                                             
+                                         Text("go outside 20 minutes early!")
+                                             .foregroundColor(Color.white)
+                                             .font(.system(size: 20, weight: .light, design: .default))
+                                             
+                                    }
+                                   // Spacer()
                                     Button(action: {
                                         goToAddLocation = true}
                                            , label: {
@@ -228,17 +346,21 @@ struct CompositePage: View {
                         }
                     }
                 }
-                .tabViewStyle(.page) // gives the page the ...'s
-                .background(pinky.edgesIgnoringSafeArea(.top))
-                .background(orangey.edgesIgnoringSafeArea(.bottom))
+                .tabViewStyle(.page) // gives the page the ...'s 
+                .background(pinky.edgesIgnoringSafeArea(.top)) // fills the screen color to the top
+                .background(orangey.edgesIgnoringSafeArea(.bottom)) // fills the screen color to the bottom
                 
             }
         }
         // this hides the back button
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        
+        
     }
 }
+
+// converts the cloud cover percentage to a good bad fine condition
 func getAstheticQuality(cloudCover: Double) -> String{
     if (cloudCover < 30){
         return "fine"
@@ -251,7 +373,7 @@ func getAstheticQuality(cloudCover: Double) -> String{
     }
 }
 
-
+// adds a space in the location for best display 
 func getFixedLocation(location:String) -> String{
     let commaIndex = location.firstIndex(of:",")
     
@@ -268,4 +390,7 @@ func getFixedLocation(location:String) -> String{
     
     return fixed_location
 }
+
+
+
 
