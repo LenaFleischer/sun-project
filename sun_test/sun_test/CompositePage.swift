@@ -24,6 +24,7 @@ struct CompositePage: View {
                 TabView{
                     ForEach(locationArray, id: \.self){ location in
                         ZStack{
+                            // sets the background color and circle
                             backgroundC
                             Image("splitCircle")
                                 .resizable()
@@ -38,26 +39,22 @@ struct CompositePage: View {
                                 let sunsetCoverDub = cloudCoverArr?[1] ?? -1
                                 
                                 let fixed_location = getFixedLocation(location: location)
+                                
+                                // this either dispays the location or, if it is the current locaction, then also displays 'current'
                                 if (currLocation == location){
                                     Text("Current: \(fixed_location)")
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 30, weight: .light, design: .default))
-                                        //.frame(alignment: .top)
                                         .frame(maxHeight: .infinity, alignment: .top)
                                         .padding()
-                                   // Spacer()
-                                     //   .frame(height: 60)
                                 }
                                 else{
                                     Text(fixed_location)
                                     
                                         .foregroundColor(Color.white)
                                         .font(.system(size: 40, weight: .light, design: .default))
-                                    //.frame(alignment: .top)
                                         .frame(maxHeight: .infinity, alignment: .top)
                                         .padding()
-                                  //  Spacer()
-                                   //     .frame(height: 50)
                                 }
                                 
                                 
@@ -65,6 +62,9 @@ struct CompositePage: View {
                                 Text("sunrise")
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 40, weight: .light, design: .default))
+                                
+                                //this HStack displays the star rating
+                                // set up to take in Lenas percentage rating
                                 HStack{
                                     /*
                                     91-100  - 5    - XXXXX
@@ -199,7 +199,10 @@ struct CompositePage: View {
                                     }
                                         
                                 }
-                                VStack{ // got errors if this is not in a vstack
+                                
+                                // got errors if this code is not in a vstack, idk why lol
+                                // this VStack displays all the info about the sunset/rise
+                                VStack{
                                     Spacer()
                                         .frame(height: 60)
                                     Text("Time")
@@ -224,6 +227,9 @@ struct CompositePage: View {
                                     Spacer()
                                         .frame(height: 55)
                                 }
+                                
+                                //this HStack displays the star rating
+                                // set up to take in the good, bad, fine conditions
                                 HStack{
                                     if sunriseCover == "good"{
                                         Image(systemName: "star.fill")
@@ -285,16 +291,8 @@ struct CompositePage: View {
                                 
                                 Spacer()
                                     .frame(height: 10)
-                                
-                               /* Text("for best views,")
-                                    .foregroundColor(Color.white)
-                                    .font(.system(size: 20, weight: .light, design: .default))
-                                    .frame(alignment: .bottom)
-                                Text("go outside 20 minutes early!")
-                                    .foregroundColor(Color.white)
-                                    .font(.system(size: 20, weight: .light, design: .default))
-                                    .frame(alignment: .bottom)
-                           */
+
+                                // this HStack contains the two buttons and the label about viewing 20 mins early
                                 HStack{
                                     NavigationLink(destination: AddLocation(locationArray: locationArray), isActive: $goToAddLocation) { EmptyView() }
                                     
@@ -321,6 +319,7 @@ struct CompositePage: View {
                                             .frame(width: 40)
                                     }
                                     
+                                    // label in VStack for best layout
                                     VStack{
                                         Text("for best views,")
                                              .foregroundColor(Color.white)
@@ -348,8 +347,8 @@ struct CompositePage: View {
                     }
                 }
                 .tabViewStyle(.page) // gives the page the ...'s 
-                .background(pinky.edgesIgnoringSafeArea(.top))
-                .background(orangey.edgesIgnoringSafeArea(.bottom))
+                .background(pinky.edgesIgnoringSafeArea(.top)) // fills the screen color to the top
+                .background(orangey.edgesIgnoringSafeArea(.bottom)) // fills the screen color to the bottom
                 
             }
         }
@@ -360,6 +359,8 @@ struct CompositePage: View {
         
     }
 }
+
+// converts the cloud cover percentage to a good bad fine condition
 func getAstheticQuality(cloudCover: Double) -> String{
     if (cloudCover < 30){
         return "fine"
@@ -372,7 +373,7 @@ func getAstheticQuality(cloudCover: Double) -> String{
     }
 }
 
-
+// adds a space in the location for best display 
 func getFixedLocation(location:String) -> String{
     let commaIndex = location.firstIndex(of:",")
     
