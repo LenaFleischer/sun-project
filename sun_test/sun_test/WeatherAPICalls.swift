@@ -215,13 +215,13 @@ func decodeAPI(userLocation:String, completionHandler: @escaping (Double,Double,
                 
                 //using the multiarrays and the model in order to get the predicted quality
                 //of the sunrise and sunset
-                let model = try! sunrise_model0()
+                let model = try! sunrise_model1()
                 
-                let sunriseInput = sunrise_model0Input(input_1: sunriseArray)
+                let sunriseInput = sunrise_model1Input(input_1: sunriseArray)
                     guard let sunrisePredictionOutput = try? model.prediction(input: sunriseInput) else {
                             fatalError("Unexpected runtime error. model.prediction")
                     }
-                let sunsetInput = sunrise_model0Input(input_1: sunsetArray)
+                let sunsetInput = sunrise_model1Input(input_1: sunsetArray)
                     guard let sunsetPredictionOutput = try? model.prediction(input: sunsetInput) else {
                             fatalError("Unexpected runtime error. model.prediction")
                     }
