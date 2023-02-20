@@ -414,7 +414,10 @@ struct CompositePage: View {
                         }
                     }
                 }
-                .tabViewStyle(.page) // gives the page the ...'s 
+                .tabViewStyle(.page) // gives the page the ...'s
+                .background(LinearGradient(
+                    colors: [pinky, orangey],
+                    startPoint: .top, endPoint: .bottom))
                 .background(pinky.edgesIgnoringSafeArea(.top)) // fills the screen color to the top
                 .background(orangey.edgesIgnoringSafeArea(.bottom)) // fills the screen color to the bottom
                 
