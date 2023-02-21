@@ -35,6 +35,7 @@ struct AddLocation: View {
                 backgroundC
                     .background(pinky.edgesIgnoringSafeArea(.top))
                     .background(orangey.edgesIgnoringSafeArea(.bottom))
+
                 VStack{
                     Image("introSun")
                         .resizable()
@@ -64,39 +65,23 @@ struct AddLocation: View {
                     LazyVStack(alignment: .leading) {
                         ForEach(autocomplete.suggestions, id: \.self) { suggestion in
                             Text(suggestion)
-                            .font(.system(size: 22, weight: .bold, design: .default))
-                            .foregroundColor(.white)
-                            .padding([.bottom],2)
-                            .padding([.leading], 40)
+                                .font(.system(size: 22, weight: .bold, design: .default))
+                                .foregroundColor(.white)
+                                .padding([.bottom],2)
+                                .padding([.leading], 40)
                             //makes the tapped location the text in the text field
-                            .onTapGesture {
-                                location = suggestion
-                            }
+                                .onTapGesture {
+                                    location = suggestion
+                                }
                         }
                     }
                     
-                   NavigationLink(destination: CompositePage(locationArray: $locationArray), isActive: $goToCompositePage) { EmptyView() }
+                    NavigationLink(destination: CompositePage(locationArray: $locationArray), isActive: $goToCompositePage) { EmptyView() }
                     //add location button that when pressed creates location
+                    
+                    
                     Button(action: {
-                         if (coordinates.lat != 0 && coordinates.lon != 0 && currLocation == ""){
-                            let roundedLat = Double(round(1000 * coordinates.lat) / 1000)
-                            let roundedLon = Double(round(1000 * coordinates.lon) / 1000)
-                            let userLocation = String(roundedLat) + "," + String(roundedLon)
-                            getLocationFromLatLon(lat: roundedLat, lon: roundedLon) { (location)  in
-                                currLocation = location
-                                print(currLocation)
-                                decodeAPI(userLocation: userLocation) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
-                                    locationArray.insert(currLocation, at: 0)
-                                    percentDict[currLocation] = [sunrisePrediction, sunsetPrediction]
-                                    timeDict[currLocation] = [sunriseTime, sunsetTime]
-                                    print(locationArray)
-                                    print(percentDict)
-                                    print(timeDict)
-                                }
-                            }
-                            
-                            
-                        }
+                         
                         if( location != "" && location == autocomplete.suggestions[0] ){
                             goToCompositePage = true
                             decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
@@ -133,6 +118,40 @@ struct AddLocation: View {
                         .tint(Color(red: 1.00, green: 1.00, blue: 1.00, opacity: 0.3))
                         .padding([.bottom],20)
                         .padding([.top],20)
+                    
+                    if (coordinates.lat != 0 && coordinates.lon != 0 && currLocation == ""){
+                        Button(action: {
+                            goToCompositePage = true
+                            let roundedLat = Double(round(1000 * coordinates.lat) / 1000)
+                            let roundedLon = Double(round(1000 * coordinates.lon) / 1000)
+                            let userLocation = String(roundedLat) + "," + String(roundedLon)
+                            getLocationFromLatLon(lat: roundedLat, lon: roundedLon) { (location)  in
+                                currLocation = location
+                                print(currLocation)
+                                decodeAPI(userLocation: userLocation) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
+                                    locationArray.insert(currLocation, at: 0)
+                                    percentDict[currLocation] = [sunrisePrediction, sunsetPrediction]
+                                    timeDict[currLocation] = [sunriseTime, sunsetTime]
+                                    print(locationArray)
+                                    print(percentDict)
+                                    print(timeDict)
+                                }
+                            }
+                        }
+                               //button that adds the location
+                               , label: {
+                            Text("See Current Location")
+                                .padding([.leading], 5)
+                                .padding([.trailing], 5)
+                                .padding([.top], 5)
+                                .padding([.bottom], 5)
+                                .font(.system(size: 20, weight: .bold, design: .default))
+
+                        }).buttonStyle(.borderedProminent)
+                            .tint(Color(red: 1.00, green: 1.00, blue: 1.00, opacity: 0.3))
+                            .padding()
+                            .padding()
+                    }
                     //error message is button is pressed when there is an invalid location
                     if(printError){
                         Text("Please select location from list")
@@ -145,7 +164,7 @@ struct AddLocation: View {
                 observeCoordinateUpdates()
                 observeLocationAccessDenied()
                 locationService.requestLocationUpdates()
-
+                
             }
         }
         // this hised the back button
