@@ -265,7 +265,7 @@ func getTime(longTime: String) -> String{
     if time.starts(with: "0"){
         // 7:04
         let newTime = time.suffix(4)
-        return String(newTime) + " a.m."
+        return String(newTime)
         // if the hour is bigger than 9
     } else{
         let hour = Int(String(time.prefix(2))) ?? 0
@@ -275,10 +275,10 @@ func getTime(longTime: String) -> String{
             // the minites and the :
             let min = time.suffix(3)
             let fixedTime = String(newHour) + String(min)
-            return fixedTime + " p.m."
+            return fixedTime
         }
         // if string is bigger than 9 but less than 12
-        return String(time) + " a.m."
+        return String(time)
     }
 }
 //loads the mean and std json files
