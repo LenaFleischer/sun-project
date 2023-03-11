@@ -13,13 +13,19 @@ public var percentDict: [String: [Double]] = [:]
 public var timeDict: [String: [String]] = [:]
 public var currLocation: String = ""
 
+
 struct CompositePage: View {
     @Binding var locationArray: [String]
-   
     @State var goToAddLocation = false
+    static var publicLocationArray:[String] = []
+    
+    init(locationArray: Binding<[String]>){
+        self._locationArray = locationArray
+        self.goToAddLocation = false
+       CompositePage.publicLocationArray = [String](locationArray)
+    }
 
     var body: some View {
-        
         NavigationView{
             VStack{
                 TabView{
@@ -449,9 +455,3 @@ func getAstheticQuality(prediction: Double) -> String{
         return "bad"
     }
 }
-
-
-
-
-
-
