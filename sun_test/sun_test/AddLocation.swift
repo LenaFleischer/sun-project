@@ -174,7 +174,8 @@ struct AddLocation: View {
                 observeCoordinateUpdates()
                 observeLocationAccessDenied()
                 locationService.requestLocationUpdates()
-                
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                AppDelegate.orientationLock = .portrait
             }
         }
         // this hised the back button

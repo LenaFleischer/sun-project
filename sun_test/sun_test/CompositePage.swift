@@ -426,8 +426,10 @@ struct CompositePage: View {
         // this hides the back button
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        
-        
+        .onAppear{
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+            AppDelegate.orientationLock = .portrait
+        }
     }
 }
 

@@ -11,6 +11,7 @@
 		4D017024299C19E6007BF7E9 /* CitiesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D017023299C19E6007BF7E9 /* CitiesFile.swift */; };
 		4D017026299C1A87007BF7E9 /* AutocompleteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D017025299C1A87007BF7E9 /* AutocompleteObject.swift */; };
 		4D0F2384299D9BDE00EC22DE /* magnifyingglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D0F2383299D9BDE00EC22DE /* magnifyingglass.png */; };
+		4D2EE62A29D0CF8500B00159 /* sunrise_model1.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EE62929D0CF8500B00159 /* sunrise_model1.mlpackage */; };
 		4DBC470529A2EBF0005A145E /* mean.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC470429A2EBF0005A145E /* mean.json */; };
 		4DBC470729A2EC05005A145E /* std.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC470629A2EC05005A145E /* std.json */; };
 		BF1DEA1C2988686100EB6D49 /* sun_testApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */; };
@@ -24,7 +25,6 @@
 		E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D8CE32991C54B000B0760 /* LocationService.swift */; };
 		E1431A3229957C25003D6596 /* WeatherAPICalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1431A3129957C25003D6596 /* WeatherAPICalls.swift */; };
 		E164EF612989BF7E00EC1FF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E164EF602989BF7E00EC1FF1 /* Main.storyboard */; };
-		E1C2B42B29A564C40065FDB2 /* sunrise_model1.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = E1C2B42A29A564C40065FDB2 /* sunrise_model1.mlpackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +49,7 @@
 		4D017023299C19E6007BF7E9 /* CitiesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesFile.swift; sourceTree = "<group>"; };
 		4D017025299C1A87007BF7E9 /* AutocompleteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteObject.swift; sourceTree = "<group>"; };
 		4D0F2383299D9BDE00EC22DE /* magnifyingglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magnifyingglass.png; sourceTree = "<group>"; };
+		4D2EE62929D0CF8500B00159 /* sunrise_model1.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = sunrise_model1.mlpackage; sourceTree = "<group>"; };
 		4DBC470429A2EBF0005A145E /* mean.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mean.json; sourceTree = "<group>"; };
 		4DBC470629A2EC05005A145E /* std.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = std.json; sourceTree = "<group>"; };
 		BF1DEA182988686100EB6D49 /* sun_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +66,6 @@
 		E12D8CE32991C54B000B0760 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E1431A3129957C25003D6596 /* WeatherAPICalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherAPICalls.swift; sourceTree = "<group>"; };
 		E164EF602989BF7E00EC1FF1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		E1C2B42A29A564C40065FDB2 /* sunrise_model1.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = sunrise_model1.mlpackage; path = ../../../../../Downloads/sunrise_model1.mlpackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 				4DBC470429A2EBF0005A145E /* mean.json */,
 				4DBC470629A2EC05005A145E /* std.json */,
 				E12D8CE32991C54B000B0760 /* LocationService.swift */,
-				E1C2B42A29A564C40065FDB2 /* sunrise_model1.mlpackage */,
+				4D2EE62929D0CF8500B00159 /* sunrise_model1.mlpackage */,
 				BF1DEA1B2988686100EB6D49 /* sun_testApp.swift */,
 				4D017021299C19D3007BF7E9 /* cities.txt */,
 				BF1DEA1F2988686300EB6D49 /* Assets.xcassets */,
@@ -300,7 +300,7 @@
 				E11BD437299ABFD7009A82F1 /* CompositePage.swift in Sources */,
 				E12D8CE42991C54B000B0760 /* LocationService.swift in Sources */,
 				E1431A3229957C25003D6596 /* WeatherAPICalls.swift in Sources */,
-				E1C2B42B29A564C40065FDB2 /* sunrise_model1.mlpackage in Sources */,
+				4D2EE62A29D0CF8500B00159 /* sunrise_model1.mlpackage in Sources */,
 				BF1DEA1C2988686100EB6D49 /* sun_testApp.swift in Sources */,
 				4D017026299C1A87007BF7E9 /* AutocompleteObject.swift in Sources */,
 			);
@@ -461,6 +461,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"sun_test/Preview Content\"";
+				DEVELOPMENT_TEAM = 7W348TU5H5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "sun-test-Info.plist";
@@ -491,6 +492,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"sun_test/Preview Content\"";
+				DEVELOPMENT_TEAM = 7W348TU5H5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "sun-test-Info.plist";
