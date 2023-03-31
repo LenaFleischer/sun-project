@@ -19,7 +19,7 @@ struct AddLocation: View {
     @State var locationArray: [String] = []
 
 
-    @State var printError = false
+    @State var listError = false // for if a user adds without selecting from suggestions
     
     // object so autocomplete works
     @ObservedObject private var autocomplete = AutocompleteObject()
@@ -98,7 +98,14 @@ struct AddLocation: View {
                                 }
                             }
                         }
-                        if( location != "" && location == autocomplete.suggestions[0] ){
+                        // if location is not empty but there are no suggestions
+                        // Lena's edit 3/30/23
+                        if (location != "" && autocomplete.suggestions.count == 0){
+                            listError = true
+                        }
+                        
+                        // if location is not empty AND we have chosen from the list
+                        else if( location != "" && location == autocomplete.suggestions[0] ){
                             goToCompositePage = true
                             decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
                                 // so that the current location is always on top
@@ -115,8 +122,10 @@ struct AddLocation: View {
                                 print(percentDict)
                                 print(timeDict)
                             }
+                            
+                        // If there are available
                         } else if (location != ""){
-                            printError = true
+                            listError = true
                         }
                     }
                            //button that adds the location
@@ -163,12 +172,13 @@ struct AddLocation: View {
                             .tint(Color(red: 1.00, green: 1.00, blue: 1.00, opacity: 0.3))
                     }
                     //error message is button is pressed when there is an invalid location
-                    if(printError){
-                        Text("Please select location from list")
+                    if(listError){
+                        Text("Please select a recognized location.")
                             .font(.system(size: 16, design: .default))
                             .foregroundColor(.white)
                             .padding([.bottom],10)
                     }
+
                 }
             }.onAppear(){
                 observeCoordinateUpdates()
