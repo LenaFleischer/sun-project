@@ -64,7 +64,7 @@ struct CurrentConditions:Codable{
     let wspd: Double
     let icon: String
     let stations: String
-    let heatindex: Int?
+    let heatindex: Double?
     let cloudcover: Double
     let datetime: String
     let precip: Double
@@ -94,7 +94,7 @@ func callAPI(){
 
     task.resume()
 }
-callAPI()
+//callAPI()
 
 func decodeAPI(){
     guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=ColoradoSprings,CO&aggregateHours=1&forecastDays=1&includeAstronomy=true&unitGroup=us&shortColumnNames=true&contentType=json&locationMode=single&key=4UR84GUK6HRFRTNBQXWNSVFJ4") else{return}
@@ -153,7 +153,7 @@ func decodeAPI(){
     task.resume()
 
 }
-//decodeAPI()
+decodeAPI()
 
 func findCloudCoverAtSunset(values: [Values], sunsetPassed: Bool){
     var sunsetTime:String
