@@ -80,9 +80,9 @@ struct Values: Codable{
     let solarenergy: Double
     let heatindex: Double?
     let moonphase: Double
-    let snowdepth: Double
+    let snowdepth: Double?
     let sealevelpressure: Double
-    let snow: Double
+    let snow: Double?
     let sunset: String
     let wgust: Double?
     let conditions: String
@@ -98,7 +98,7 @@ struct CurrentConditions:Codable{
     let wspd: Double
     let icon: String
     let stations: String
-    let heatindex: Int?
+    let heatindex: Double?
     let cloudcover: Double?
     let datetime: String
     let precip: Double
@@ -322,7 +322,11 @@ func makeSunriseVector(values: [Values], correctedSunriseTime: String) -> [Doubl
                 sunrise_vector.append(i.windchill!)
             }
             sunrise_vector.append(i.precip)
-            sunrise_vector.append(i.snowdepth)
+            if(i.snowdepth == nil){
+                sunrise_vector.append(0.0)
+            } else {
+                sunrise_vector.append(i.snowdepth!)
+            }
             sunrise_vector.append(i.visibility)
             sunrise_vector.append(i.cloudcover)
             sunrise_vector.append(i.sealevelpressure)
@@ -389,7 +393,11 @@ func makeSunsetVector(values: [Values], correctedSunsetTime: String) -> [Double]
                 sunset_vector.append(i.windchill!)
             }
             sunset_vector.append(i.precip)
-            sunset_vector.append(i.snowdepth)
+            if(i.snowdepth == nil){
+                sunset_vector.append(0.0)
+            } else {
+                sunset_vector.append(i.snowdepth!)
+            }
             sunset_vector.append(i.visibility)
             sunset_vector.append(i.cloudcover)
             sunset_vector.append(i.sealevelpressure)
