@@ -110,10 +110,16 @@ struct AddLocation: View {
                             decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
                                 // so that the current location is always on top
                                     // but the other locations are in order of when they were added
-                                if locationArray.count == 0{
+                                    // if there is a current location
+                                if (locationArray.count == 0 && coordinates.lat != 0 && coordinates.lon != 0 && currLocation == "") {
                                     locationArray.insert(location, at: 0)
                                 } else {
-                                    locationArray.insert(location, at: 1)
+                                    // check to see if location is already in array (we dont want duplicates)
+                                    // maybe later make it be the second element
+                                    if !locationArray.contains(location){
+                                        locationArray.insert(location, at: 1)
+                                    }
+                                    
                                 }
                                 
                                 percentDict[location] = [sunrisePrediction, sunsetPrediction]
