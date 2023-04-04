@@ -384,11 +384,11 @@ struct CompositePage: View {
                                         
                                     } else{
                                         Spacer()
-                                            .frame(width: 40)
+                                            //.frame(width: 40)
                                     }
                                     
                                     // label in VStack for best layout
-                                    VStack{
+                                   /* VStack{
                                         Text("for best views,")
                                              .foregroundColor(Color.white)
                                              .font(.system(size: 20, weight: .light, design: .default))
@@ -397,8 +397,8 @@ struct CompositePage: View {
                                              .foregroundColor(Color.white)
                                              .font(.system(size: 20, weight: .light, design: .default))
                                              
-                                    }
-                                   // Spacer()
+                                    } */
+                                    Spacer()
                                     Button(action: {
                                         goToAddLocation = true}
                                            , label: {

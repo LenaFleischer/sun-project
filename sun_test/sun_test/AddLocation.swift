@@ -108,12 +108,22 @@ struct AddLocation: View {
                         else if( location != "" && location == autocomplete.suggestions[0] ){
                             goToCompositePage = true
                             decodeAPI(userLocation: location.replacingOccurrences(of: " ", with: "")) { (sunrisePrediction,sunsetPrediction, sunriseTime, sunsetTime) in
-                                // so that the current location is always on top
-                                    // but the other locations are in order of when they were added
-                                if locationArray.count == 0{
-                                    locationArray.insert(location, at: 0)
-                                } else {
-                                    locationArray.insert(location, at: 1)
+                                
+                                // check to see if location is already in array (we dont want duplicates)
+                                if !locationArray.contains(location){
+                                    // so that the current location is always on top
+                                        // but the other locations are in order of when they were added
+                                    // if there is a current location
+                                    if (coordinates.lat != 0 && coordinates.lon != 0) {
+                                        if locationArray.count == 0{
+                                            locationArray.insert(location, at: 0)
+                                        } else {
+                                            locationArray.insert(location, at: 1)
+                                        }
+                                    // if we dont have the users current location, we want the most recent to be first
+                                    } else {
+                                        locationArray.insert(location, at: 0)
+                                    }
                                 }
                                 
                                 percentDict[location] = [sunrisePrediction, sunsetPrediction]
